@@ -1,0 +1,17 @@
+Notas sobre este repositorio: 
+- Para crear todos los proyectos que existirán en este repositorio vamos a usar la web: https://start.spring.io/
+- Esta web, genera un esqueleto de proyecto, listo para usar.
+- Todos los proyectos se van a desarrollar con Maven y Java 17 a no ser que se indique en el proyecto.
+- La versión de SpringBoot será siempre la última disponible en el momento de crear el proyecto.
+
+Notas para proyecto de ejemplo (TODO CAMBIAR A READEME del proyecto)
+- Group: com.corporativoX
+- Artifact: es el nombre del proyecto con el que se va a descargar el archivo 
+- Name: nombre descriptivo
+- Description:
+- Package name: el package principal con la estructura del proyecto
+- El packaging: En Spring Boot, la elección entre un archivo JAR y un archivo War está relacionada con la forma en que se empaqueta y despliega tu aplicación. La elección depende del tipo de aplicación que estás desarrollando y cómo planeas implementarla.
+Ejemplo: Jar, formato archivo que contiene código Java, este ya contiene un servidor de aplicaciones externo, son adecuados para aplicaciones autónomas que no requieren un servidor de aplicaciones externo. Son ideles para aplicaciones autocontenidas
+War, es un formato utilizado para empaquetar aplicaciones web ava que se despliegan en servidores de aplicaciones, como tomcat, Jetty o WildFly. Elegirlo cuando se quiera desplegar la app en un servidor de aplicaciones externo. Para apps con Spring mejor JAR
+- Versión de Java 17
+- Dependencias: 
