@@ -74,3 +74,11 @@
 - Estilo de Arquitectura: Una API puede seguir cualquier estilo de arquitectura, mientras que una API REST sigue específicamente los principios del diseño REST.
 - Protocolo: Las APIs REST generalmente utilizan HTTP/HTTPS como protocolo de comunicación, aunque no están limitadas a ello.
 - Interfaz Uniforme: Las APIs REST utilizan una interfaz uniforme y métodos HTTP estándar, mientras que otras APIs pueden utilizar diferentes enfoques y protocolos.
+
+  # ¿Qué es el enrutamiento?
+  - Es el proceso mediante el cual Spring Boot decide qué método de controlador ejecutar en respuesta a una solicitud HTTP específica.
+  - Esto se consifue gracias a las anotaciones:
+    - @GetMapping.
+    - @PostMapping.
+    - @PutMapping.
+    - @DeleteMapping.
