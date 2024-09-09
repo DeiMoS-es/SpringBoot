@@ -19,7 +19,7 @@ public class PalindromeController {
         if (isPalindrome(word)) {
             return "La palabra: " + word.toUpperCase() + " es un palíndromo";
         } else {
-            return "La palabra: " + word.toUpperCase() + "  no es un palíndromo";
+            return "La palabra: " + word.toUpperCase() + " no es un palíndromo";
         }
     }
 
