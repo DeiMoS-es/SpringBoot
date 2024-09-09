@@ -2,9 +2,7 @@ package cursoSpringBoot.controllers;
 
 import cursoSpringBoot.models.Customer;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -33,6 +31,12 @@ public class CustomerController {
             }
         }
         return null;
+    }
+
+    @PostMapping("/customers")
+    public Customer addCustomer(@RequestBody Customer customer){
+        customers.add(customer);
+        return customer;
     }
 
     /* FORMA DE HACERLO CON UNA EXCEPCIÓN
