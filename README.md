@@ -33,3 +33,22 @@
 - **@RestController** simplifica el desarrollo de APIs RESTfull al combinar la anotación @Controller y @ResponseBody, permitiendo a los dedarrolladores crear controladores que generen respuestas HTTP en formato JSON o XML de manera fácil y rápida.
 - **@GetMapping**, se utiliza para mapear las solicitudes HTTP GET.
 - **@PathVariable** se utiliza para mapear partes de la URL de una solicitud web a parámetros de un controlador de Spring. Indica que un parámetro Java se transformará en un parámetro web que estará contenido en la URL de un endpoint.
+
+## Arquitectura en Capas:
+- Enfoque comunmente utilizado para diseñar sistemas de software, se puede aplicar en el diseño y desarrollo de un microservicio.
+- ### Capas:
+    - Presentación: suele ser mínima o incluso inexistente en los microservicios ya que generalmente no tienen una interfaz de usuario directa
+    - Lógica de negocio: esta capa se compone principalmente de servicios, que son las clases que implementan la lógica de negocio específica. Esto significa que los servicios son responsables de implementar reglas de negeocio, realizar cálculos, validar datos.
+    - Acceso a datos: es la capa responsable de ineractuar con la base de datos u otros sistemas de almacenamiento de datos.
+    - Opcionales integración y seguridad: la de **integración** se utiliza para integrar el microservicio con otros dentro de la misma arquitectura de microservicios, puede incluir componentes de comunicación como clientes HTTP, clientes de servicio web, colas de mensajes, etc. La de **seguridad** se encarga de implementar medidas de seguridad, como la autenticación y la autorización.
+## MicroServicios:
+- Los microservicios son una arquitectura de software en la que una aplicación monolítica se descompone en pequeños servicios independientes. Cada uno de estos servicios se centran en realizar una tarea espetífica, y pueden ser desarrollados, implementados y escalados de manera independiente.
+- ### Ventajas_
+  - Escalabilidad independiente.
+  - Despliegue independiente.
+  - Facilidad de mantenimiento.
+  - Flexibilidad Tecnológica.
+  - Tolerancia a fallos.
+- ### Desventajas:
+  - Complejidad de la Gestión.
+  - Mayor complejidad de Testing.
