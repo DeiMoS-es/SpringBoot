@@ -32,3 +32,4 @@
 - Ejemplo: **@GetMapping**, de manera opcional puede ir acompañado de un atributo **@GetMapping("/clientes")**.
 - **@RestController** simplifica el desarrollo de APIs RESTfull al combinar la anotación @Controller y @ResponseBody, permitiendo a los dedarrolladores crear controladores que generen respuestas HTTP en formato JSON o XML de manera fácil y rápida.
 - **@GetMapping**, se utiliza para mapear las solicitudes HTTP GET.
+- **@PathVariable** se utiliza para mapear partes de la URL de una solicitud web a parámetros de un controlador de Spring. Indica que un parámetro Java se transformará en un parámetro web que estará contenido en la URL de un endpoint.
