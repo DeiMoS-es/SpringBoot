@@ -30,6 +30,7 @@ En Spring Boot, la elección entre un archivo JAR y un archivo WAR está relacio
   - La primera capa será la capa de controladores, que se encargará de recibir las peticiones HTTP y delegar el trabajo a la capa de servicios.
 ### Controladores
 - En las peticiones, podemos crear la llamada a GET con distintas url
+- En el controlador GreetingRestController, estamos utilizando la anotación @Pathvariable para recibir un parámetro en la url y dentro del método podremos hacer uso del mismo.
 
 [^1^][1]: [Baeldung - Differences Between JAR and WAR Packaging](https://www.baeldung.com/java-jar-war-packaging)
 [^2^][2]: [Baeldung - Running a Spring Boot App with Maven vs an Executable Jar](https://www.baeldung.com/spring-boot-run-maven-vs-executable-jar)
