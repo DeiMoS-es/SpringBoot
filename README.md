@@ -43,7 +43,7 @@
     - Opcionales integración y seguridad: la de **integración** se utiliza para integrar el microservicio con otros dentro de la misma arquitectura de microservicios, puede incluir componentes de comunicación como clientes HTTP, clientes de servicio web, colas de mensajes, etc. La de **seguridad** se encarga de implementar medidas de seguridad, como la autenticación y la autorización.
 ## MicroServicios:
 - Los microservicios son una arquitectura de software en la que una aplicación monolítica se descompone en pequeños servicios independientes. Cada uno de estos servicios se centran en realizar una tarea espetífica, y pueden ser desarrollados, implementados y escalados de manera independiente.
-- ### Ventajas_
+- ### Ventajas
   - Escalabilidad independiente.
   - Despliegue independiente.
   - Facilidad de mantenimiento.
@@ -52,3 +52,25 @@
 - ### Desventajas:
   - Complejidad de la Gestión.
   - Mayor complejidad de Testing.
+
+# ¿Qué es una API?
+- Es un conjunto de definiciones y protocolos que facilitan la comunicación y la interacción entre diferentes componentes de software. Las cuales actúan como puentes que permiten aplicaicones y sistemas se comuniquen de manera eficiente y coherente.
+- Significa Interfaz de Programación de Aplicaciones.
+- Sirven como intermediarios esenciales entre sistemas y aplicaciones.
+- La arquitectura de una API se refiere a las reglas que rigen cómo se comparten los datos con los clientes.
+- Arquitecturas:
+    - SOAP.
+    - RPC.
+    - WebSocket.
+    - REST. Es la arquitectura más común para APIs debido a su escalabilidad y facilidad de implementación. Está basada en estándares web que utilizan métodos HTTP para realizar oprecaciones CRUD.
+# ¿Qué es una API rest?
+- Es un tipo específico de API que sigue los principios del diseño REST. REST es un estilo de arquitectura para diseñar servicios web que se basa en un conjunto de restricciones y principios, como:
+    - Separación cliente-servidor.
+    - Interfaz uniforme, todas las peticiones y respuestas pertenecen a un identificador uniforme de recursos (URI), se transmiten a través de protocolos HTTP.
+    - Sin estado, las aplicaciones de servidor no pueden almacenar datos de las peticiones de los clientes.
+    - Sistema en capas.
+    - Almacenamiento en caché.
+## Diferencias:
+- Estilo de Arquitectura: Una API puede seguir cualquier estilo de arquitectura, mientras que una API REST sigue específicamente los principios del diseño REST.
+- Protocolo: Las APIs REST generalmente utilizan HTTP/HTTPS como protocolo de comunicación, aunque no están limitadas a ello.
+- Interfaz Uniforme: Las APIs REST utilizan una interfaz uniforme y métodos HTTP estándar, mientras que otras APIs pueden utilizar diferentes enfoques y protocolos.
