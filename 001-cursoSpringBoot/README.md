@@ -32,5 +32,15 @@ En Spring Boot, la elección entre un archivo JAR y un archivo WAR está relacio
 - En las peticiones, podemos crear la llamada a GET con distintas url
 - En el controlador GreetingRestController, estamos utilizando la anotación @Pathvariable para recibir un parámetro en la url y dentro del método podremos hacer uso del mismo.
 
+### Casos prácticos
+- Desarrollar una aplicación utilizando Spring Boot que permia a los usuarios verificar si una palabra ingresada es un palíndromo o no.
+  - Un palíndromo es una palabra que se lee igual de izquierda a derecha que de derecha a izquierda. Ej: "radar", "reconocer".
+- Requerimientos:
+  - La aplicación debe ser una aplicación web que utilice Spring Boot.
+  - Se debe crear un nuevo proyecto desde Spring initializer.
+  - La lógica para verifica si una palabra es un palíndromo debe estar encapsulada en un método separado.
+  - El endpoint debe devolver un mensaje claro, indicando si la palabra es un palíndromo o no.
+  - Utiliza buenas prácticas de codificación y nombra adecuadamente tus cases y métodos.
+  - Opcionalmente, documenta tu código adecuadamente utilizando comentarios cuando sea necesario.
 [^1^][1]: [Baeldung - Differences Between JAR and WAR Packaging](https://www.baeldung.com/java-jar-war-packaging)
 [^2^][2]: [Baeldung - Running a Spring Boot App with Maven vs an Executable Jar](https://www.baeldung.com/spring-boot-run-maven-vs-executable-jar)
