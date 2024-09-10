@@ -70,6 +70,17 @@
     - Sin estado, las aplicaciones de servidor no pueden almacenar datos de las peticiones de los clientes.
     - Sistema en capas.
     - Almacenamiento en caché.
+- En el diseño de APIs RESTful, es una buena práctica atender una solicitud POST mostrando la URI del recurso recién creado. (Según las convenciones REST).
+    ### Notas:
+      - ¿Qué es una URI?
+        - Identificador de Recursos Uniforme es una cadena de texto que identifica de manera única un recurso en Internet.
+        - Una dirección que te dice dónde encontrar algo.
+      - ¿Qué es una URL?
+        - Localizado de Recursos Uniforme es un tipo específico de URI., no solo identifica un recurso, sino que también proporciona una forma de localizarlo en Inernet.
+      - Diferencias:
+        - URI identifica, URL identifica y localiza el recurso
+        - Todas las URL son URI, pero no todas las URI son URL.
+- Debe de devolver el código **201 Created** junto con el encabezado Location, que indica la ubicación del nuevo recurso.
 ## Diferencias:
 - Estilo de Arquitectura: Una API puede seguir cualquier estilo de arquitectura, mientras que una API REST sigue específicamente los principios del diseño REST.
 - Protocolo: Las APIs REST generalmente utilizan HTTP/HTTPS como protocolo de comunicación, aunque no están limitadas a ello.
