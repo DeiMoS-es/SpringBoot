@@ -56,10 +56,10 @@ public class CustomerController {
                 c.setUserName(customer.getUserName());
                 c.setCustomerName(customer.getCustomerName());
                 c.setCustomerPassword(customer.getCustomerPassword());
-                return ResponseEntity.ok("Customer updated successfully with userName: " + userName);
+                return ResponseEntity.noContent().build();
             }
         }
-       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with userName: " + userName);
+       return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{userName}")
@@ -67,10 +67,10 @@ public class CustomerController {
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
                 customers.remove(c);
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Customer deleted successfully with userName: " + userName);
+                return ResponseEntity.noContent().build();
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with userName: " + userName);
+        return ResponseEntity.notFound().build();
     }
 
     @PatchMapping("/{userName}")
