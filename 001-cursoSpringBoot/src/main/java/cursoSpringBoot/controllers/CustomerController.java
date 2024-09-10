@@ -2,9 +2,12 @@ package cursoSpringBoot.controllers;
 
 import cursoSpringBoot.models.Customer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,53 +22,59 @@ public class CustomerController {
             new Customer(456, "Ana", "anita", "6543")
     ));
 
+    // @RequestMapping(method = RequestMethod.GET)
     @GetMapping()
-    public List<Customer> getAllCustomers() {
-        return customers;
+    public ResponseEntity<List<Customer>> getAllCustomers() {
+        return ResponseEntity.ok(customers);
     }
 
+    // @RequestMapping(value = "/{userName}", method = RequestMethod.GET)
     @GetMapping("/{userName}")
-    public Customer getCustomerByUserName(@PathVariable String userName){
+    public ResponseEntity<?> getCustomerByUserName(@PathVariable String userName){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
-                return c;
+                return ResponseEntity.ok(c);
             }
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with userName: " + userName);
     }
 
     @PostMapping("")
-    public Customer addCustomer(@RequestBody Customer customer){
+    public ResponseEntity<?> addCustomer(@RequestBody Customer customer){
         customers.add(customer);
-        return customer;
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/")
+                .buildAndExpand(customer.getUserName())
+                .toUri();
+        return ResponseEntity.created(location).body("Customer created with userName: " + customer.getUserName());
     }
 
     @PutMapping("/{userName}")
-    public Customer updateCustomer(@PathVariable String userName, @RequestBody Customer customer){
+    public ResponseEntity<?> updateCustomer(@PathVariable String userName, @RequestBody Customer customer){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
                 c.setUserName(customer.getUserName());
                 c.setCustomerName(customer.getCustomerName());
                 c.setCustomerPassword(customer.getCustomerPassword());
-                return c;
+                return ResponseEntity.ok("Customer updated successfully with userName: " + userName);
             }
         }
-        return null;
+       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with userName: " + userName);
     }
 
     @DeleteMapping("/{userName}")
-    public Customer deleteCustomer(@PathVariable String userName){
+    public ResponseEntity<?> deleteCustomer(@PathVariable String userName){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
                 customers.remove(c);
-                return c;
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Customer deleted successfully with userName: " + userName);
             }
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with userName: " + userName);
     }
 
     @PatchMapping("/{userName}")
-    public Customer patchCustomer(@PathVariable String userName, @RequestBody Customer customer){
+    public ResponseEntity<?> patchCustomer(@PathVariable String userName, @RequestBody Customer customer){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
                 if(customer.getUserName() != null){
@@ -77,10 +86,10 @@ public class CustomerController {
                 if(customer.getCustomerPassword() != null){
                     c.setCustomerPassword(customer.getCustomerPassword());
                 }
-                return c;
+                return ResponseEntity.ok("Customer patched successfully with userName: " + userName);
             }
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with userName: " + userName);
     }
 
     /* FORMA DE HACERLO CON UNA EXCEPCIÓN

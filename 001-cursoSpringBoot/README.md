@@ -28,7 +28,7 @@ En Spring Boot, la elección entre un archivo JAR y un archivo WAR está relacio
 - En las peticiones, podemos crear la llamada a GET con distintas url.
 - En el controlador GreetingRestController, estamos utilizando la anotación @Pathvariable para recibir un parámetro en la url y dentro del método podremos hacer uso del mismo.
 
-### Casos prácticos
+### Casos prácticos 1
 - Desarrollar una aplicación utilizando Spring Boot que permita a los usuarios verificar si una palabra ingresada es un palíndromo o no.
   - Un palíndromo es una palabra que se lee igual de izquierda a derecha que de derecha a izquierda. Ej.: "radar", "reconocer".
 - Requerimientos:
@@ -38,5 +38,18 @@ En Spring Boot, la elección entre un archivo JAR y un archivo WAR está relacio
   - El endpoint debe devolver un mensaje claro, indicando si la palabra es un palíndromo o no.
   - Utiliza buenas prácticas de codificación y nombra adecuadamente tus cases y métodos.
   - Opcionalmente, documenta tu código adecuadamente utilizando comentarios cuando sea necesario.
+### Casos prácticos 2
+- Desarrollar una aplicación utilizando Spring Boot que permita gestionar una lista de alumnos mediante un CRUD.
+- Requerimientos:
+  - La aplicación debe proporcionar endpoint RESTful para:
+    - Mostrar todos los alumnos.
+    - Consultar un alumno por su email.
+    - Crear un nuevo alumno.
+    - Modificar la información de un alumno. (Tanto de manera total como parcial).
+    - Eliminar un alumno por su ID.
+  - La app debe ser una aplicación web que utilice Spring Boot.
+  - Se debe crear un nuevo proyecto desde Spring initializer.
+  - Los recursos de esta aplicación deberán estar contenidos en una lista de Java, e inicialmente, debe contener un máximo de 4 alumnos con los atributor ID, nombre, email, edad y curso.
+  - Las rutas de todos los endpoints deberán estar unificadas.
 [^1^][1]: [Baeldung - Differences Between JAR and WAR Packaging](https://www.baeldung.com/java-jar-war-packaging)
 [^2^][2]: [Baeldung - Running a Spring Boot App with Maven vs an Executable Jar](https://www.baeldung.com/spring-boot-run-maven-vs-executable-jar)
