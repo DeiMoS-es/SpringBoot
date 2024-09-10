@@ -4,7 +4,6 @@ import cursoSpringBoot.models.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -43,10 +42,11 @@ public class CustomerController {
     public ResponseEntity<?> addCustomer(@RequestBody Customer customer){
         customers.add(customer);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/")
+                .path("/{userName}")
                 .buildAndExpand(customer.getUserName())
                 .toUri();
-        return ResponseEntity.created(location).body("Customer created with userName: " + customer.getUserName());
+        // return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(customer);
     }
 
     @PutMapping("/{userName}")
