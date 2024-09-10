@@ -113,5 +113,14 @@
   - **502** Bad Gateway: El servidor, actuando como puerta de enlace o proxy, recibió una respuesta inválida del servidor upstream.
   - **503** Service Unavailable: El servidor no está disponible para manejar la solicitud debido a un mantenimiento o sobrecarga temporal.
   - **504** Gateway Timeout: El servidor, actuando como puerta de enlace o proxy, no recibió una respuesta a tiempo del servidor upstream.
-
-
+# URL
+- La convención de URL es una forma estandarizada de estructurar los endpoints de una API para que sea intuitivos y fáciles de usar.
+- Versionado de API es una práctica que permite que diferentes versiones de una API coexistan simultáneamente.
+  - Tipos:
+    - Versionado en la URL: incluye la versión en la ruta de la URL. Es el más común y fácil de implementar. Consiste en incluir la versión de la API directamente en la ruta de URL.
+      - Ej: http://localhost:8080/sistema/api/v1
+      - **sistema** corresponde a la raíz de la app. **api** indica que los recursos siguientes pertenecen a la API de la aplicación. **v1** Indica la versión de la API que se está utilizando
+    - Versionado en el encabezado: Utiliza encabezados HTTP para especificar la versión.
+    - Versionado en parámetros de consulta: Utiliza parámetros de consulta en la URL.
+# Capa de servicios
+- Es donde reside la lógica del negocio, es decir, la funcionalidad principal de nuestro programa.
