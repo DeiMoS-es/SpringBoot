@@ -51,5 +51,6 @@ En Spring Boot, la elección entre un archivo JAR y un archivo WAR está relacio
   - Se debe crear un nuevo proyecto desde Spring initializer.
   - Los recursos de esta aplicación deberán estar contenidos en una lista de Java, e inicialmente, debe contener un máximo de 4 alumnos con los atributor ID, nombre, email, edad y curso.
   - Las rutas de todos los endpoints deberán estar unificadas.
+
 [^1^][1]: [Baeldung - Differences Between JAR and WAR Packaging](https://www.baeldung.com/java-jar-war-packaging)
 [^2^][2]: [Baeldung - Running a Spring Boot App with Maven vs an Executable Jar](https://www.baeldung.com/spring-boot-run-maven-vs-executable-jar)
