@@ -70,6 +70,11 @@
     - Sin estado, las aplicaciones de servidor no pueden almacenar datos de las peticiones de los clientes.
     - Sistema en capas.
     - Almacenamiento en caché.
+- En el diseño de APIs RESTful, es una buena práctica atender una solicitud POST mostrando la URI del recurso recién creado. (Según las convenciones REST).
+    ### Notas:
+      - **¿Qué es una URI?
+        - Identificador de Recursos Uniforme) es una cadena de texto que identifica de manera única un recurso en Internet.
+- Debe de devolver el código **201 Created** junto con el encabezado Location, que indica la ubicación del nuevo recurso.
 ## Diferencias:
 - Estilo de Arquitectura: Una API puede seguir cualquier estilo de arquitectura, mientras que una API REST sigue específicamente los principios del diseño REST.
 - Protocolo: Las APIs REST generalmente utilizan HTTP/HTTPS como protocolo de comunicación, aunque no están limitadas a ello.
