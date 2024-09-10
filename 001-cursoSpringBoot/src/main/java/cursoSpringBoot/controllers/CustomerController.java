@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 @RestController
+@RequestMapping("/customers")
 public class CustomerController {
 
     private List<Customer> customers = new ArrayList<>(Arrays.asList(
@@ -18,12 +19,12 @@ public class CustomerController {
             new Customer(456, "Ana", "anita", "6543")
     ));
 
-    @GetMapping("/customers")
+    @GetMapping()
     public List<Customer> getAllCustomers() {
         return customers;
     }
 
-    @GetMapping("/customers/{userName}")
+    @GetMapping("/{userName}")
     public Customer getCustomerByUserName(@PathVariable String userName){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
@@ -33,13 +34,13 @@ public class CustomerController {
         return null;
     }
 
-    @PostMapping("/customers")
+    @PostMapping("")
     public Customer addCustomer(@RequestBody Customer customer){
         customers.add(customer);
         return customer;
     }
 
-    @PutMapping("/customers/{userName}")
+    @PutMapping("/{userName}")
     public Customer updateCustomer(@PathVariable String userName, @RequestBody Customer customer){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
@@ -52,7 +53,7 @@ public class CustomerController {
         return null;
     }
 
-    @DeleteMapping("/customers/{userName}")
+    @DeleteMapping("/{userName}")
     public Customer deleteCustomer(@PathVariable String userName){
         for(Customer c : customers){
             if(c.getUserName().equals(userName)){
@@ -62,6 +63,26 @@ public class CustomerController {
         }
         return null;
     }
+
+    @PatchMapping("/{userName}")
+    public Customer patchCustomer(@PathVariable String userName, @RequestBody Customer customer){
+        for(Customer c : customers){
+            if(c.getUserName().equals(userName)){
+                if(customer.getUserName() != null){
+                    c.setUserName(customer.getUserName());
+                }
+                if(customer.getCustomerName() != null){
+                    c.setCustomerName(customer.getCustomerName());
+                }
+                if(customer.getCustomerPassword() != null){
+                    c.setCustomerPassword(customer.getCustomerPassword());
+                }
+                return c;
+            }
+        }
+        return null;
+    }
+
     /* FORMA DE HACERLO CON UNA EXCEPCIÓN
     @GetMapping("/customer/{userName}")
     public Customer getCustomerByUserName(@PathVariable String userName) {
