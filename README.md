@@ -75,10 +75,32 @@
 - Protocolo: Las APIs REST generalmente utilizan HTTP/HTTPS como protocolo de comunicación, aunque no están limitadas a ello.
 - Interfaz Uniforme: Las APIs REST utilizan una interfaz uniforme y métodos HTTP estándar, mientras que otras APIs pueden utilizar diferentes enfoques y protocolos.
 
-  # ¿Qué es el enrutamiento?
-  - Es el proceso mediante el cual Spring Boot decide qué método de controlador ejecutar en respuesta a una solicitud HTTP específica.
-  - Esto se consifue gracias a las anotaciones:
-    - @GetMapping.
-    - @PostMapping.
-    - @PutMapping.
-    - @DeleteMapping.
+# ¿Qué es el enrutamiento?
+ - Es el proceso mediante el cual Spring Boot decide qué método de controlador ejecutar en respuesta a una solicitud HTTP específica.
+ - Esto se consifue gracias a las anotaciones:
+   - @GetMapping.
+   - @PostMapping.
+   - @PutMapping.
+   - @DeleteMapping.
+# Clase ResponseEntity:
+- La clase ResponseEntity se utiliza para representar toda la respuesta HTTP, incluyendo el cuerpo, los encabezados y el estado. De esta manera podremos controlar de manera detallada cómo se construyen y devuelven las respuestas HTTP desde los controladores.
+- Es considerada una clase "Wrapper" (envoltorio), ya que encapsula un objeto dentro de la misma.
+## Códigos de repsuesta HTTP:
+- Los códigos de respuesta http son códigos numéricos estándar que los servidores envían a los clientes, para indicar el resultado de una solicitud HTTP.
+- Tipos:
+  - **200** OK: La solicitud ha tenido éxito.
+  - **201** Created: La solicitud ha tenido éxito y se ha creado un nuevo recurso como resultado.
+  - **204** No Content: La solicitud ha tenido éxito pero no hay contenido que devolver.
+  - **400** Bad Request: El servidor no puede procesar la solicitud debido a un error del cliente.
+  - **401** Unauthorized: La solicitud requiere autenticación.
+  - **403** Forbidden: El servidor entiende la solicitud pero se niega a autorizarla.
+  - **404** Not Found: El servidor no puede encontrar el recurso solicitado.
+  - **405** Method Not Allowed: El método de solicitud no está permitido para el recurso solicitado.
+  - **409** Conflict: La solicitud no se puede completar debido a un conflicto con el estado actual del recurso.
+  - **422** Unprocessable Entity: Entidad no procesable. Se utiliza para errores de validación.
+  - **500** Internal Server Error: El servidor encontró una condición inesperada que le impidió completar la solicitud.
+  - **502** Bad Gateway: El servidor, actuando como puerta de enlace o proxy, recibió una respuesta inválida del servidor upstream.
+  - **503** Service Unavailable: El servidor no está disponible para manejar la solicitud debido a un mantenimiento o sobrecarga temporal.
+  - **504** Gateway Timeout: El servidor, actuando como puerta de enlace o proxy, no recibió una respuesta a tiempo del servidor upstream.
+
+
