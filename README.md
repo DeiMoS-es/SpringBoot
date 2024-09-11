@@ -34,6 +34,7 @@
 - **@GetMapping**, se utiliza para mapear las solicitudes HTTP GET.
 - **@PathVariable** se utiliza para mapear partes de la URL de una solicitud web a parámetros de un controlador de Spring. Indica que un parámetro Java se transformará en un parámetro web que estará contenido en la URL de un endpoint.
 - **@Service**, indicamos al contenedor de Spring que esa clase debe ser tratada como un bean de servicio. Spring gestionará automáticamente la reación de instancias de esa clase y podrá inyectarlas en otras partes de la aplicación cuando sea necesario.
+- **@Autowired**, es una anotación de las más fundamentales y juega un papel crucial en la implementación de la Inyección de Dependencias. Indica a Spring que debe inyectar automáticamente una dependencia en el lugar donde se declara.
 ## Arquitectura en Capas:
 - Enfoque comunmente utilizado para diseñar sistemas de software, se puede aplicar en el diseño y desarrollo de un microservicio.
 - ### Capas:
