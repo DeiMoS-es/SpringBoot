@@ -33,7 +33,7 @@
 - **@RestController** simplifica el desarrollo de APIs RESTfull al combinar la anotación @Controller y @ResponseBody, permitiendo a los dedarrolladores crear controladores que generen respuestas HTTP en formato JSON o XML de manera fácil y rápida.
 - **@GetMapping**, se utiliza para mapear las solicitudes HTTP GET.
 - **@PathVariable** se utiliza para mapear partes de la URL de una solicitud web a parámetros de un controlador de Spring. Indica que un parámetro Java se transformará en un parámetro web que estará contenido en la URL de un endpoint.
-
+- **@Service**, indicamos al contenedor de Spring que esa clase debe ser tratada como un bean de servicio. Spring gestionará automáticamente la reación de instancias de esa clase y podrá inyectarlas en otras partes de la aplicación cuando sea necesario.
 ## Arquitectura en Capas:
 - Enfoque comunmente utilizado para diseñar sistemas de software, se puede aplicar en el diseño y desarrollo de un microservicio.
 - ### Capas:
@@ -130,3 +130,19 @@
   - Abstracción: permite separar la definición del comportamiento.
   - Flexibilidad: permiten cambiar las implementaciones sin afectar al código que utilizan las interfaces.
   - Escalabilidad: facilita la adición de nuevas funcionalidades. Puedes agregar nuevas clases que implementen la misma interfaz sin alterar el código       existente.
+# Inyección de Dependencias:
+- Es un patrón de diseño que permite a los objetos recibir sus dependencias desde el exterior.
+- El objetivo es promover un bajo acoplamiento entre componentes.En otras palabras, cada componente debe tener poca o ninguna dependencia directa de otros componentes.
+- Para lograr la Inyección de Dependencias, es necesario utilizar una técnica basada en el principio de Inversión de Control.
+- En el contexto de Spring, el contenedor de IoC (Inversión de Control) es el mismo Spring. ya que un contenedor es un componente que se encarga de gestionar el ciclo de vida de los objetos, también conocidos como beans.
+- El contenedor IoC que gestiona los beans, es responsable de:
+  - Crear instancias.
+  - Configurar dependencias
+  - Gstionar ciclos de vida de los beans.
+- Cuando utilizamos inyección de dependencias, le indicamos a Spring que se encargue de crear e inyectar as instancias de las dependencias necesarias en tus clases, en lugar de hacerlo tú.
+- Al delegar esta responsabilidad, estás invirtiendo el control que tipicamente tendría tu aplicación sobre la creación y gestión de objetos.
+- Inyección de Dependencias es el patrón de diseño, mientras que inversión de control es la técnica que utilizamos para aplicar la inyección de dependencias.
+- En Spring existen 3 tipos de inyección de dependencias:
+  - Inyección por Constructor: dentro del constructor de la clase.
+  - Inyección por Setter: se pasa a través de parámetro en el método.
+  - Inyección por Campo: se inyecta directamente en sus atributos.
