@@ -27,7 +27,9 @@ En Spring Boot, la elección entre un archivo JAR y un archivo WAR está relacio
 ### Controladores
 - En las peticiones, podemos crear la llamada a GET con distintas url.
 - En el controlador GreetingRestController, estamos utilizando la anotación @Pathvariable para recibir un parámetro en la url y dentro del método podremos hacer uso del mismo.
-
+### Beans
+- Es un objeto gestionado por el contenedor de Spring.
+- En este proyecto un ejemplo de bean es la clase ProducController. Y lo sabemos porque tiene anotaciones muy específicas de Spring.
 ### Casos prácticos 1
 - Desarrollar una aplicación utilizando Spring Boot que permita a los usuarios verificar si una palabra ingresada es un palíndromo o no.
   - Un palíndromo es una palabra que se lee igual de izquierda a derecha que de derecha a izquierda. Ej.: "radar", "reconocer".
