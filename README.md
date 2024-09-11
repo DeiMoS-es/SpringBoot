@@ -124,3 +124,9 @@
     - Versionado en parámetros de consulta: Utiliza parámetros de consulta en la URL.
 # Capa de servicios
 - Es donde reside la lógica del negocio, es decir, la funcionalidad principal de nuestro programa.
+# Interfaz
+- Es un contrato que especifica un conjunto de métodos que una o más clases deben proporcionar, sin definir cómo se deben implementar estos métodos.
+- Beneficios:
+  - Abstracción: permite separar la definición del comportamiento.
+  - Flexibilidad: permiten cambiar las implementaciones sin afectar al código que utilizan las interfaces.
+  - Escalabilidad: facilita la adición de nuevas funcionalidades. Puedes agregar nuevas clases que implementen la misma interfaz sin alterar el código       existente.
