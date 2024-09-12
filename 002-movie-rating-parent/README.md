@@ -10,10 +10,11 @@ Este proyecto es una aplicación web basada en microservicios en la que los usua
 - **Servicio de Descubrimiento**: Eureka
 
 ## Estructura del Proyecto
-La aplicación consta de 3 microservicios:
+La aplicación consta de 4 microservicios:
 - **Movies**: Operaciones CRUD sobre películas.
 - **Comments**: Operaciones CRUD sobre comentarios.
 - **Ratings**: Operaciones CRUD sobre puntuaciones.
+- **Users**: Operaciones CRUD sobre usuarios.
 
 El proyecto es modular, con un proyecto "padre" que contiene los microservicios o módulos.
 
@@ -46,6 +47,37 @@ El proyecto es modular, con un proyecto "padre" que contiene los microservicios 
     ```xml
     <packaging>pom</packaging>
     ```
+### Notas
+- Además de los microservicios mencionados anteriormente, tendremos:
+  - **Eureka**: Servicio de descubrimiento. Es un servidor de registro y descubrimiento de servicios.
+  - **ApiGateway**: Puerta de enlace para los microservicios. Es como la puerta de entrada a la aplicación, recibe el request y lo redirige al microservicio correspondiente.
+  - **ConfigServer**: Servidor de configuración. Es un servidor que centraliza la configuración de los microservicios.
+- La iteración del proyecto sería:
+  - El cliente realiza una petición al ApiGateway. 
+
+## Creando los microservicios
+
+### ApiGateway
+1. Crear un proyecto Spring Boot con las siguientes dependencias:
+    - `Eureka Discovery Client`
+    - `Spring Cloud Gateway`
+    - `Config Client`
+    - `Spring Boot Actuator`
+
+2. En el archivo `pom.xml`el microservicio api-gateway, añadir la configuración para indicar que es un proyecto hijo:
+    ```xml
+    <parent>
+        <groupId>com.movie.rating</groupId>
+        <artifactId>movie-rating-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    ```
+2.1 Y en el `pom.xml` del "padre":
+```xml
+<modules>
+    <module>api-gateway</module>
+</modules>
+```
 
 ## Ejecución
 Para ejecutar los microservicios, navegar a cada uno de los directorios de los microservicios y ejecutar:
