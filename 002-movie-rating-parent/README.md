@@ -78,7 +78,16 @@ El proyecto es modular, con un proyecto "padre" que contiene los microservicios 
     <module>api-gateway</module>
 </modules>
 ```
-
+### Eureka
+1. Crear un proyecto Spring Boot con las siguientes dependencias:
+    - `Eureka Server`
+    - `Config Client`
+    - `Spring Boot Actuator`
+2. Repetimos los pasos 2 y 2.1 del microservicio anterior.
+### ConfigServer
+1. Crear un proyecto Spring Boot con las siguientes dependencias:
+    - `Config Server`
+2. Repetimos los pasos 2 y 2.1 del microservicio ApiGateway.
 ## Ejecución
 Para ejecutar los microservicios, navegar a cada uno de los directorios de los microservicios y ejecutar:
 ```sh
