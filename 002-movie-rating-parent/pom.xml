@@ -34,6 +34,7 @@
 		<module>config-server</module>
 		<module>users-service</module>
 		<module>movies-service</module>
+		<module>rating-review-service</module>
 	</modules>
 	<properties>
 		<java.version>17</java.version>
