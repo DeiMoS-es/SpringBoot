@@ -97,6 +97,8 @@ El proyecto es modular, con un proyecto "padre" que contiene los microservicios 
     - `Config Client`
     - `Spring Boot Actuator`
 2. Repetimos los pasos 2 y 2.1 del microservicio ApiGateway.
+### Movies-Services
+- Repetimos los pasos 1 y 2 del microservicio Users-Services.
 ## Ejecución
 Para ejecutar los microservicios, navegar a cada uno de los directorios de los microservicios y ejecutar:
 ```sh

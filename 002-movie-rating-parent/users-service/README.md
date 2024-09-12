@@ -3,28 +3,29 @@
 - Refactorizamos el properties a YAML.
 - En el archivo `application.yml` del proyecto `users-service`:
 ```yaml
-server:
   port: 8090
 
-spring:
-  application:
-    name: msvc-student
-  datasource:
-    driver-class-name: com.mysql.cj.jdb.Driver
-    url: jdbc:mysql://localhost:3336/movie_rating_users
-    username: mrusers
-    password: mrusers
-  jpa:
-    hibernate:
-      ddl-auto: create
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+  spring:
+    application:
+      name: msvc-student
+    config:
+      import: optional:configserver:http://localhost:8888
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: ${DB_URL}
+      username: ${DB_USER_NAME}
+      password: ${DB_PASSWORD}
+    jpa:
+      hibernate:
+        ddl-auto: create
+      database: mysql
+      database-platform: org.hibernate.dialect.MySQL8Dialect
 
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+  eureka:
+    instance:
+      hostname: localhost
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
 ```
 - Decoramos la clase principal con el decorador `@EnableDiscoveryClient`.
