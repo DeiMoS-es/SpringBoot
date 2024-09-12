@@ -88,6 +88,15 @@ El proyecto es modular, con un proyecto "padre" que contiene los microservicios 
 1. Crear un proyecto Spring Boot con las siguientes dependencias:
     - `Config Server`
 2. Repetimos los pasos 2 y 2.1 del microservicio ApiGateway.
+### Users-Services
+1. Crear un proyecto Spring Boot con las siguientes dependencias:
+    - `Spring Web`
+    - `Spring Data JPA`
+    - `MySQL Driver`
+    - `Eureka Discovery Client`
+    - `Config Client`
+    - `Spring Boot Actuator`
+2. Repetimos los pasos 2 y 2.1 del microservicio ApiGateway.
 ## Ejecución
 Para ejecutar los microservicios, navegar a cada uno de los directorios de los microservicios y ejecutar:
 ```sh
