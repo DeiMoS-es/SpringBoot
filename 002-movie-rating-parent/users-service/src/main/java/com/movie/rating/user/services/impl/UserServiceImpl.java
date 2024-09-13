@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService {
                 ValidationUser.validateUser(userRequest);
                 // TODO: Encriptar la contraseña
                 User user = User.builder()
-                        .userId(String.valueOf(UUID.randomUUID()))
                         .userName(userRequest.getUserName())
                         .firstName(userRequest.getFirstName())
                         .lastName(userRequest.getLastName())

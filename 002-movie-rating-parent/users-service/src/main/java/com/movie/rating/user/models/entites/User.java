@@ -19,11 +19,15 @@ import java.util.UUID;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String userId;
+    @Column(unique = true, nullable = false)
     private String userName;
     private String firstName;
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(unique = true, nullable = false)
     private String password;
     // TODO crear la relación entre usuarios y puntuaciones
     /**
