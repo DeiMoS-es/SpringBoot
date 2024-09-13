@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
                 ValidationUser.validateUser(userRequest);
                 // TODO: Encriptar la contraseña
                 User user = User.builder()
+                        .userId(String.valueOf(UUID.randomUUID()))
                         .userName(userRequest.getUserName())
                         .firstName(userRequest.getFirstName())
                         .lastName(userRequest.getLastName())
@@ -46,7 +47,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> getAllUsers() {
-        return List.of();
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::mapToUserResponse).toList();
     }
 
     @Override
@@ -60,12 +62,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UUID userId, UserRequest userRequest) {
+    public void updateUser(String userId, UserRequest userRequest) {
 
     }
 
     @Override
-    public void deleteUser(UUID userId) {
+    public void deleteUser(String userId) {
 
+    }
+
+    private UserResponse mapToUserResponse(User user){
+        return UserResponse.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .build();
     }
 }

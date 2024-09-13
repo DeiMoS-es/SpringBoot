@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class UserResponse {
-    private UUID userId;
+    private String userId;
     private String userName;
     private String firstName;
     private String lastName;
