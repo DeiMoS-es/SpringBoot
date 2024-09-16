@@ -15,6 +15,7 @@ La aplicación consta de 4 microservicios:
 - **Comments**: Operaciones CRUD sobre comentarios.
 - **Ratings**: Operaciones CRUD sobre puntuaciones.
 - **Users**: Operaciones CRUD sobre usuarios.
+- **Security**: Autenticación y autorización de usuarios.
 
 El proyecto es modular, con un proyecto "padre" que contiene los microservicios o módulos.
 
@@ -99,6 +100,17 @@ El proyecto es modular, con un proyecto "padre" que contiene los microservicios 
 2. Repetimos los pasos 2 y 2.1 del microservicio ApiGateway.
 ### Movies-Services
 - Repetimos los pasos 1 y 2 del microservicio Users-Services.
+### Rating-Reviews-Services
+- Repetimos los pasos 1 y 2 del microservicio Users-Services.
+### Security-Services
+1. Crear un proyecto Spring Boot con las siguientes dependencias:
+    - `Spring Web`
+    - `Spring Security`
+    - `Spring Data JPA`
+    - `MySQL Driver`
+    - `Eureka Discovery Client`
+    - `Config Client`
+    - `Spring Boot Actuator`
 ## Ejecución
 Para ejecutar los microservicios, navegar a cada uno de los directorios de los microservicios y ejecutar:
 ```sh
