@@ -7,10 +7,9 @@ import microservices.book.multiplication.entities.MultiplicationResultAttempt;
 import microservices.book.multiplication.services.MultiplicationServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/results")
@@ -43,5 +42,10 @@ public class MultiplicationResultAttemptController {
                 isCorrect);
 
         return ResponseEntity.ok(attemptCopy);
+    }
+
+    @GetMapping
+    ResponseEntity<List<MultiplicationResultAttempt>> getStatics(@RequestParam("alias") String alias){
+        return ResponseEntity.ok(multiplicationServices.getStatsForUser(alias));
     }
 }

@@ -1,22 +1,34 @@
 package microservices.book.multiplication.services.impl;
 
+import jakarta.transaction.Transactional;
 import microservices.book.multiplication.entities.Multiplication;
 import microservices.book.multiplication.entities.MultiplicationResultAttempt;
+import microservices.book.multiplication.entities.User;
+import microservices.book.multiplication.repository.MultiplicationResultAttemptRepository;
+import microservices.book.multiplication.repository.UserRepository;
 import microservices.book.multiplication.services.MultiplicationServices;
 import microservices.book.multiplication.services.RandomGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MultiplicationServiceImpl implements MultiplicationServices {
 
     private RandomGeneratorService randomGeneratorService;
+    private MultiplicationResultAttemptRepository attemptRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public MultiplicationServiceImpl(RandomGeneratorService randomGeneratorService) {
+    public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService, final MultiplicationResultAttemptRepository attemptRepository, final UserRepository userRepository) {
         this.randomGeneratorService = randomGeneratorService;
+        this.attemptRepository = attemptRepository;
+        this.userRepository = userRepository;
     }
+
     @Override
     public Multiplication createRandomMultiplication() {
         int factorA = randomGeneratorService.generateRandomFactor();
@@ -24,20 +36,27 @@ public class MultiplicationServiceImpl implements MultiplicationServices {
         return new Multiplication(factorA, factorB);
     }
 
+    // Esto significa que todas las operaciones de base de datos realizadas dentro del método se ejecutarán como una única unidad de trabajo.
+    //  Si alguna de las operaciones falla, todas las operaciones se revertirán (rollback), asegurando la consistencia de los datos.
+    @Transactional
     @Override
     public boolean checkAttempt(final MultiplicationResultAttempt resultAttempt) {
-        boolean correct = resultAttempt.getResultAttempt() ==
-                resultAttempt.getMultiplication().getFactorA() *
-                        resultAttempt.getMultiplication().getFactorB();
-
+        Optional<User> user = userRepository.findByAlias(resultAttempt.getUser().getAlias());
         Assert.isTrue(!resultAttempt.isCorrect(), "You can't send an attempt marked as correct!!");
+        boolean isCorrect = resultAttempt.getResultAttempt() == resultAttempt.getMultiplication().getFactorA() * resultAttempt.getMultiplication().getFactorB();
+
         MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(
-                resultAttempt.getUser(),
+                user.orElse(resultAttempt.getUser()),
                 resultAttempt.getMultiplication(),
                 resultAttempt.getResultAttempt(),
-                correct
+                isCorrect
         );
+        attemptRepository.save(checkedAttempt);
+        return isCorrect;
+    }
 
-        return correct;
+    @Override
+    public List<MultiplicationResultAttempt> getStatsForUser(String userAlias){
+        return attemptRepository.findTop5ByUserAliasOrderByMultiplicationResultAttemptIdDesc(userAlias);
     }
 }
