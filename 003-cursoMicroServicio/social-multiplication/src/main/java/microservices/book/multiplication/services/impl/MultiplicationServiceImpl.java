@@ -6,6 +6,7 @@ import microservices.book.multiplication.services.MultiplicationServices;
 import microservices.book.multiplication.services.RandomGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class MultiplicationServiceImpl implements MultiplicationServices {
@@ -25,8 +26,18 @@ public class MultiplicationServiceImpl implements MultiplicationServices {
 
     @Override
     public boolean checkAttempt(final MultiplicationResultAttempt resultAttempt) {
-        return resultAttempt.getResultAttempt() ==
+        boolean correct = resultAttempt.getResultAttempt() ==
                 resultAttempt.getMultiplication().getFactorA() *
                         resultAttempt.getMultiplication().getFactorB();
+
+        Assert.isTrue(!resultAttempt.isCorrect(), "You can't send an attempt marked as correct!!");
+        MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(
+                resultAttempt.getUser(),
+                resultAttempt.getMultiplication(),
+                resultAttempt.getResultAttempt(),
+                correct
+        );
+
+        return correct;
     }
 }

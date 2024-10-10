@@ -5,9 +5,6 @@ $.ajax({url: "http://localhost:8080/multiplications/random"}).then(function(data
 	$("#attempt-form").find( "input[name='result-attempt']" ).val("");
 	$("#attempt-form").find( "input[name='user-alias']" ).val("");
 	// Gets a random challenge from API and loads the data in the HTML
-	console.log(data);
-	console.log(data.factorA);
-	console.log(data.factorB);
 	$('.multiplication-a').empty().append(data.factorA);
 	$('.multiplication-b').empty().append(data.factorB);
 	});
