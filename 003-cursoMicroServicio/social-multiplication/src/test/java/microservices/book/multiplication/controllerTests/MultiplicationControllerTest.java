@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import microservices.book.multiplication.controller.MultiplicationController;
 import microservices.book.multiplication.entities.Multiplication;
 import microservices.book.multiplication.services.MultiplicationServices;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -17,10 +19,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.assertThat;
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(MultiplicationController.class)
 public class MultiplicationControllerTest {
 
@@ -36,7 +39,7 @@ public class MultiplicationControllerTest {
     private JacksonTester<Multiplication> json;
 
     // Configuración inicial antes de cada prueba
-    @Before
+    @BeforeEach
     public void setup() {
         JacksonTester.initFields(this, new ObjectMapper());
     }
