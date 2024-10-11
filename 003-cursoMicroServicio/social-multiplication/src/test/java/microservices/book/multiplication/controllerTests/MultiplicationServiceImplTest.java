@@ -3,6 +3,8 @@ package microservices.book.multiplication.controllerTests;
 import microservices.book.multiplication.entities.Multiplication;
 import microservices.book.multiplication.entities.MultiplicationResultAttempt;
 import microservices.book.multiplication.entities.User;
+import microservices.book.multiplication.event.EventDispatcher;
+import microservices.book.multiplication.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservices.book.multiplication.repository.UserRepository;
 import microservices.book.multiplication.services.MultiplicationServices;
@@ -14,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.Optional;
-
+import static org.mockito.ArgumentMatchers.eq;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 public class MultiplicationServiceImplTest {
@@ -34,10 +36,13 @@ public class MultiplicationServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private EventDispatcher eventDispatcher;
+
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService, attemptRepository, userRepository);
+        multiplicationServiceImpl = new MultiplicationServiceImpl(randomGeneratorService, attemptRepository, userRepository, eventDispatcher);
     }
 
     @Test
@@ -57,10 +62,15 @@ public class MultiplicationServiceImplTest {
         Multiplication multiplication = new Multiplication(50, 60);
         User user = new User("john_doe");
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3000, false);
+        MultiplicationResultAttempt verifiedAttempt = new MultiplicationResultAttempt(user, multiplication, 3000, true);
+        MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getMultiplicationResultAttemptId(), attempt.getUser().getUserId(), true);
+        given(userRepository.findByAlias("john_doe")).willReturn(Optional.empty());
         // when
         boolean attemptResult = multiplicationServiceImpl.checkAttempt(attempt);
         // assert
         assertThat(attemptResult).isTrue();
+        verify(attemptRepository).save(verifiedAttempt);
+        verify(eventDispatcher).send(eq(event));
     }
     @Test
     public void checkWrongAttemptTest() {

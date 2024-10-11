@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import microservices.book.multiplication.entities.Multiplication;
 import microservices.book.multiplication.entities.MultiplicationResultAttempt;
 import microservices.book.multiplication.entities.User;
+import microservices.book.multiplication.event.EventDispatcher;
+import microservices.book.multiplication.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservices.book.multiplication.repository.UserRepository;
 import microservices.book.multiplication.services.MultiplicationServices;
@@ -21,12 +23,14 @@ public class MultiplicationServiceImpl implements MultiplicationServices {
     private RandomGeneratorService randomGeneratorService;
     private MultiplicationResultAttemptRepository attemptRepository;
     private UserRepository userRepository;
+    private EventDispatcher eventDispatcher;
 
     @Autowired
-    public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService, final MultiplicationResultAttemptRepository attemptRepository, final UserRepository userRepository) {
+    public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService, final MultiplicationResultAttemptRepository attemptRepository, final UserRepository userRepository, final EventDispatcher eventDispatcher) {
         this.randomGeneratorService = randomGeneratorService;
         this.attemptRepository = attemptRepository;
         this.userRepository = userRepository;
+        this.eventDispatcher = eventDispatcher;
     }
 
     @Override
@@ -52,6 +56,8 @@ public class MultiplicationServiceImpl implements MultiplicationServices {
                 isCorrect
         );
         attemptRepository.save(checkedAttempt);
+        // Communicates the result via Event
+        eventDispatcher.send(new MultiplicationSolvedEvent(checkedAttempt.getMultiplicationResultAttemptId(), checkedAttempt.getUser().getUserId(), checkedAttempt.isCorrect()));
         return isCorrect;
     }
 
