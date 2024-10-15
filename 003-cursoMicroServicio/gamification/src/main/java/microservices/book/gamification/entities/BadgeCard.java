@@ -1,5 +1,8 @@
 package microservices.book.gamification.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Generated;
@@ -7,9 +10,10 @@ import lombok.RequiredArgsConstructor;
 /**/
 @RequiredArgsConstructor
 @Data
+@Entity
 public class BadgeCard {
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long badgeId;
 
     private final Long userId;

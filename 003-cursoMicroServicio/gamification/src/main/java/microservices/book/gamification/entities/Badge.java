@@ -1,9 +1,10 @@
 package microservices.book.gamification.entities;
 
 public enum Badge {
-    BRONZE_MULTIPLICATION,
-    SILVER_MULTIPLICATION,
-    GOLD_MULTIPLICATION,
+    BRONZE_MULTIPLICATOR,
+    SILVER_MULTIPLICATOR,
+    GOLD_MULTIPLICATOR,
     FIRST_ATTEMPT,
-    FIRST_WON
+    FIRST_WON,
+    LUCKY_NUMBER
 }

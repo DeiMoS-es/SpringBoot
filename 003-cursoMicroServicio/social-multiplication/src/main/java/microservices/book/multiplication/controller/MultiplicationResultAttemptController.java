@@ -48,4 +48,9 @@ public class MultiplicationResultAttemptController {
     ResponseEntity<List<MultiplicationResultAttempt>> getStatics(@RequestParam("alias") String alias){
         return ResponseEntity.ok(multiplicationServices.getStatsForUser(alias));
     }
+
+    @GetMapping("/{resultId}")
+    ResponseEntity<MultiplicationResultAttempt> getResultById(@PathVariable("resultId") Long resultId){
+        return ResponseEntity.ok(multiplicationServices.getResultById(resultId));
+    }
 }

@@ -1,6 +1,7 @@
 package microservices.book.gamification.entities;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Data
+@Entity
 public class ScoreCard {
     public static final int DEFAULT_SCORE = 10;
     @Id

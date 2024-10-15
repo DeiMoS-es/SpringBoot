@@ -65,4 +65,10 @@ public class MultiplicationServiceImpl implements MultiplicationServices {
     public List<MultiplicationResultAttempt> getStatsForUser(String userAlias){
         return attemptRepository.findTop5ByUserAliasOrderByMultiplicationResultAttemptIdDesc(userAlias);
     }
+
+    @Override
+    public MultiplicationResultAttempt getResultById(Long resultId) {
+        Optional<MultiplicationResultAttempt> attemptCopy = attemptRepository.findById(resultId);
+        return attemptCopy.get();
+    }
 }
