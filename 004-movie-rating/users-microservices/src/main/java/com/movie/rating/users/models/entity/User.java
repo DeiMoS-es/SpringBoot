@@ -1,11 +1,9 @@
-package com.movie.rating.users.entity;
+package com.movie.rating.users.models.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,16 +13,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class User {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String userId;
     @NotBlank
+    @Column(unique = true, nullable = false)
     private String userName;
     @NotBlank
+    @Column(unique = true, nullable = false)
     private String email;
     @NotBlank
     private String password;
     private LocalDateTime createdAt;
-    private String role;
+    private Role role;
 }
