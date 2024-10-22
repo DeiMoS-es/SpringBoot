@@ -1,4 +1,4 @@
-package com.movie.rating.users.models.dtos;
+package com.auth_service.models.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

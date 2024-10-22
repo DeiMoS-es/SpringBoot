@@ -1,16 +1,13 @@
-package com.movie.rating.users.models.dtos;
+package com.auth_service.models.entity.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserRequest {
+@AllArgsConstructor
+public class LoginRequest {
     private String userName;
-    private String email;
     private String password;
 }

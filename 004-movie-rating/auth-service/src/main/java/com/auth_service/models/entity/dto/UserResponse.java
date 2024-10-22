@@ -1,4 +1,4 @@
-package com.movie.rating.users.models.dtos;
+package com.auth_service.models.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserRequest {
+public class UserResponse {
+    private String userId;
     private String userName;
     private String email;
+    private String role;
     private String password;
+    private String createdAt;
 }

@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +30,10 @@ public class UserServiceImpl implements UserService {
             Optional<User> existingEmail = userRepository.findByEmail(userRequest.getEmail());
             if(existingUser.isEmpty() && existingEmail.isEmpty()){
                 ValidationUser.validateUser(userRequest);
-                String hashedPassword = BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt());
+                //String hashedPassword = BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt());
                 User user = User.builder()
                         .userName(userRequest.getUserName())
-                        .password(hashedPassword)
+                        .password(userRequest.getPassword())
                         .email(userRequest.getEmail())
                         .createdAt(LocalDateTime.now())
                         .role( Role.USER)
@@ -65,8 +64,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse getUserByUserName(String userName) {
-        return null;
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(() ->  new UserException("User not found"));
+        return mapToUserResponse(user);
     }
+
 
     @Override
     public void updateUser(UserRequest userRequest) {
@@ -87,6 +89,7 @@ public class UserServiceImpl implements UserService {
                 .userName(user.getUserName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .password(user.getPassword())
                 .createdAt(user.getCreatedAt().toString())
                 .build();
     }
