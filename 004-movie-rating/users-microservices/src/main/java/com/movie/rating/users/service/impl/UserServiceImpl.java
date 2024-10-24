@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService {
             Optional<User> existingEmail = userRepository.findByEmail(userRequest.getEmail());
             if(existingUser.isEmpty() && existingEmail.isEmpty()){
                 ValidationUser.validateUser(userRequest);
-                //String hashedPassword = BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt());
+                String hashedPassword = BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt());
                 User user = User.builder()
                         .userName(userRequest.getUserName())
-                        .password(userRequest.getPassword())
+                        .password(hashedPassword)
                         .email(userRequest.getEmail())
                         .createdAt(LocalDateTime.now())
                         .role( Role.USER)

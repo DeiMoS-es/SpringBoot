@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa la solicitud de inicio de sesión
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
