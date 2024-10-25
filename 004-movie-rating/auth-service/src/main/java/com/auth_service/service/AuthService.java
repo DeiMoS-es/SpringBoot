@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -24,37 +25,35 @@ public class AuthService {
     private AuthenticationManager  authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     public AuthResponse login(LoginRequest loginRequest) {
         try {
             System.out.println("Intentando iniciar sesión para el usuario: " + loginRequest.getUserName());
             System.out.println("Autenticando la contraseña...: " + loginRequest.getPassword());
-            // Obtener detalles del usuario desde el microservicio de usuarios
-            UserResponse userResponse = restTemplate.getForObject("http://localhost:8080/users/" + loginRequest.getUserName(), UserResponse.class);
-            System.out.println("Detalles del usuario obtenidos: " + userResponse);
 
-            // Verificar que el usuario exista y que la contraseña sea correcta
-            if (userResponse != null && passwordEncoder.matches(loginRequest.getPassword(), userResponse.getPassword())) {
-                System.out.println("Autenticación exitosa para el usuario: " + loginRequest.getUserName());
+            // Cargar detalles del usuario usando UserDetailsService
+            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUserName());
 
-                // Convertir UserResponse a UserDetails (en este caso, a nuestra clase User que implementa UserDetails)
-                User userDetails = convertToUserDetails(userResponse);
-
-                // Aquí puedes construir y devolver la respuesta de autenticación
-                return AuthResponse.builder()
-                        .token(jwtServices.getToken(userDetails)) // Generar el token JWT
-                        .mensaje("Inicio de sesión exitoso")
-                        .build();
-            } else {
-                throw new BadCredentialsException("Invalid username or password.");
-            }
+            // Autenticar al usuario
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            userDetails.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
+            return AuthResponse.builder()
+                    .token(jwtServices.getToken(userDetails)) // Generar el token JWT
+                    .mensaje("Inicio de sesión exitoso")
+                    .build();
         } catch (HttpClientErrorException e) {
             System.err.println("Error en la llamada al microservicio de usuarios: " + e.getResponseBodyAsString());
             e.printStackTrace();
             throw new RuntimeException("Error en la llamada al microservicio de usuarios", e);
         } catch (BadCredentialsException e) {
-            System.err.println("Error durante el inicio de sesión: " + e.getMessage());
-            throw e; // Re-throw the exception to be handled in the controller
+            System.err.println("Error de credenciales durante el inicio de sesión: " + e.getMessage());
+            throw e;
         }catch (Exception e) {
             System.err.println("Error durante el inicio de sesión: " + e.getMessage());
             e.printStackTrace();

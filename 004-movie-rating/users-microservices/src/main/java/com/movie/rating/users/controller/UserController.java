@@ -1,9 +1,11 @@
 package com.movie.rating.users.controller;
 
+import com.movie.rating.users.exception.UserException;
 import com.movie.rating.users.models.dtos.UserRequest;
 import com.movie.rating.users.models.dtos.UserResponse;
 import com.movie.rating.users.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,9 +41,14 @@ public class UserController {
 
     @GetMapping("/{userName}")
     public ResponseEntity<UserResponse> getUserByUserName(@PathVariable String userName){
-        System.out.println("User name: " + userName);
-        UserResponse userResponse = this.userService.getUserByUserName(userName);
-        System.out.println("User response: " + userResponse);
-        return ResponseEntity.ok(userResponse);
+        try{
+            UserResponse userResponse = this.userService.getUserByUserName(userName);
+            return ResponseEntity.ok(userResponse);
+        }catch (UserException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 }

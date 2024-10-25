@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -25,6 +26,8 @@ public class AuthController {
             return ResponseEntity.status(e.getStatusCode()).body(new AuthResponse(null, e.getResponseBodyAsString()));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse(null, e.getMessage()));
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AuthResponse(null, e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new AuthResponse(null, e.getMessage()));
         }

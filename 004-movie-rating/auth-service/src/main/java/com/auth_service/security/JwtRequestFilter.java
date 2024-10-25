@@ -1,7 +1,6 @@
 package com.auth_service.security;
 
 import com.auth_service.service.JwtService;
-import com.auth_service.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,15 +17,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Este es el filtro de authentificación que se encarga de validar el token JWT
  */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private JwtService jwtService;
     @Autowired
