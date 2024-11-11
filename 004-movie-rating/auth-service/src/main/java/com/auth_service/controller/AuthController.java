@@ -3,6 +3,7 @@ package com.auth_service.controller;
 import com.auth_service.models.entity.dto.AuthResponse;
 import com.auth_service.models.entity.dto.LoginRequest;
 import com.auth_service.models.entity.dto.RegisterRequest;
+import com.auth_service.rabbitmq.MessageSender;
 import com.auth_service.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,14 @@ import org.springframework.web.client.HttpClientErrorException;
 public class AuthController {
     @Autowired
     private AuthService authService;
+    @Autowired
+    private MessageSender messageSender;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         try {
+            AuthResponse response = authService.login(loginRequest);
+            messageSender.sendLoginEvent(loginRequest.getUserName(), response.getToken());
             return ResponseEntity.ok(authService.login(loginRequest));
         } catch (HttpClientErrorException e) {
             return ResponseEntity.status(e.getStatusCode()).body(new AuthResponse(null, e.getResponseBodyAsString()));
