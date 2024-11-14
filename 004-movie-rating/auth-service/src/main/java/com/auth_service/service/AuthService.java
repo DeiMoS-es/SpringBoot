@@ -3,7 +3,9 @@ package com.auth_service.service;
 import com.auth_service.models.entity.User;
 import com.auth_service.models.entity.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +29,14 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserDetailsService userDetailsService;
+
+    // RabbitMQ
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    @Value("${rabbitmq.exchange}")
+    private String exchange;
+    @Value("${rabbitmq.routingkey}")
+    private String routingkey;
 
     public AuthResponse login(LoginRequest loginRequest) {
         try {
@@ -91,6 +101,9 @@ public class AuthService {
         try {
             // Envio el usuario al microservicio de usuarios
             restTemplate.postForObject("http://localhost:8080/users", userRequest, UserRequest.class);
+            // Enviar evento de registro
+            String registerEvent = "Usuario registrado: " + user.getUsername();
+            sendMessage(registerEvent);
         } catch (HttpClientErrorException e) {
             // Manejo de errores específicos del cliente HTTP
             throw new RuntimeException("Error al registrar el usuario: " + e.getResponseBodyAsString(), e);
@@ -102,5 +115,10 @@ public class AuthService {
                 .token(jwtServices.getToken(user))
                 .mensaje("Usuario registrado correctamente")
                 .build();
+    }
+
+    private void sendMessage(String message){
+        rabbitTemplate.convertAndSend(exchange, routingkey, message);
+        System.out.println("Mensaje enviado: " + message);
     }
 }

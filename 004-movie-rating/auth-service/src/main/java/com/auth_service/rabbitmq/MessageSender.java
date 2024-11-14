@@ -1,6 +1,6 @@
 package com.auth_service.rabbitmq;
 
-import com.movie.rating.users.rabbitmq.RabbitMQConfiguration;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
