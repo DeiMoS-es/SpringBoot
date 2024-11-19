@@ -50,14 +50,7 @@ public class Movie {
     @JsonProperty("vote_count")
     private int voteCount;
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = "https://image.tmdb.org/t/p/w220_and_h330_face" + posterPath;
     }
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
-    public String getFullPosterPath() {
-        return "https://image.tmdb.org/t/p/w220_and_h330_face" + this.posterPath;
-    }
-
 }
