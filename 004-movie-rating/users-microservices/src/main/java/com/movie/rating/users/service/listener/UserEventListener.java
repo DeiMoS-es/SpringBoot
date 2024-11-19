@@ -14,7 +14,5 @@ public class UserEventListener {
         // Log para verificar que el mensaje se ha recibido
         logger.info("Mensaje recibido: " + message);
         System.out.println("Mensaje recibido: " + message);
-        // Lógica para manejar el evento...
-        // Por ejemplo, puedes deserializar el mensaje si es un JSON y procesar los datos.
     }
 }
