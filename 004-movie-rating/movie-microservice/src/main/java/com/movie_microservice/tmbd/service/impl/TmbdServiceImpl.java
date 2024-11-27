@@ -70,4 +70,23 @@ public class TmbdServiceImpl  implements TmbdService {
                     }
                 });
     }
+
+    @Override
+    public Mono<Integer> getTotalPages() {
+        return this.webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/discover/movie")
+                        .queryParam("api_key", apiKey)
+                        .queryParam("language", "en-US")
+                        .queryParam("page", 1) // Assuming you want the total pages from the first page response
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(response -> {
+                    try {
+                        return objectMapper.readTree(response).get("total_pages").asInt();
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException("Error parsing total pages", e);
+                    }
+                });
+    }
 }

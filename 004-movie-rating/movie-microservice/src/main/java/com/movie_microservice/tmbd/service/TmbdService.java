@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface TmbdService {
     Mono<List<Movie>> getAllMovies(int page);
+    Mono<Integer> getTotalPages();
 }
