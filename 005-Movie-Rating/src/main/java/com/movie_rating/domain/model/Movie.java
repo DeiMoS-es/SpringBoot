@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -49,6 +50,8 @@ public class Movie {
     private Double voteAverage;
     @JsonProperty("vote_count")
     private int voteCount;
+    @OneToMany(mappedBy = "movie")
+    private Set<Rating> ratings;
 
     public void setPosterPath(String posterPath) {
         this.posterPath = "https://image.tmdb.org/t/p/w220_and_h330_face" + posterPath;
