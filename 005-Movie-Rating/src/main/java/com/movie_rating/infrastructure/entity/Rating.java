@@ -1,4 +1,4 @@
-package com.movie_rating.domain.model;
+package com.movie_rating.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,5 +22,5 @@ public class Rating {
     private User user;
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
-    private Movie movie;
+    private MovieEntity movieEntity;
 }

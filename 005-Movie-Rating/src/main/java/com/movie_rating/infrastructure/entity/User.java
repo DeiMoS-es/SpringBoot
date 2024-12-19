@@ -1,4 +1,4 @@
-package com.movie_rating.domain.model;
+package com.movie_rating.infrastructure.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
