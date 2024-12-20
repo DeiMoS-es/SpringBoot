@@ -2,7 +2,6 @@ package com.movie_rating.aplication.mapper;
 
 import com.movie_rating.aplication.dto.MovieDTO;
 import com.movie_rating.domain.model.Movie;
-import com.movie_rating.infrastructure.entity.MovieEntity;
 import org.springframework.stereotype.Component;
 
 /**

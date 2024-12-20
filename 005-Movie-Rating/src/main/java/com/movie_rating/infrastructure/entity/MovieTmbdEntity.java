@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieEntity {
+public class MovieTmbdEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
@@ -50,11 +50,11 @@ public class MovieEntity {
     private Double voteAverage;
     @JsonProperty("vote_count")
     private int voteCount;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movieTmbdEntity")
     private Set<Rating> ratings;
 
     // Contructor para crear el DTO
-    public MovieEntity(int movieDtoId, boolean adult, String backdropPath, String originalTitle, String posterPath, String releaseDate, String title) {
+    public MovieTmbdEntity(int movieDtoId, boolean adult, String backdropPath, String originalTitle, String posterPath, String releaseDate, String title) {
         this.movieId = movieDtoId;
         this.adult = adult;
         this.backdropPath = backdropPath;

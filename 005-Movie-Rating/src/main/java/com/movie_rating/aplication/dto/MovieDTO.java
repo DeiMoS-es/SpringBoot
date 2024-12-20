@@ -19,4 +19,5 @@ public class MovieDTO {
     private String posterPath;
     private String releaseDate;
     private String title;
+
 }

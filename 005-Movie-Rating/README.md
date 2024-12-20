@@ -26,9 +26,9 @@ La aplicación permite:
 
 ![Diagrama Hexagonal](assets/images/9eqcL7e.png)
 
-- **Capa de Dominio**:
+- **Capa de Dominio**: contiene la lógica de negocio central y es independiente de cualquier tecnología específica. Aquí es donde se definen las entidades del dominio, los repositorios y las reglas de negocio.
     - Model: 
-      - Contiene las entidades (`User`, `Movie`).
+      - Contiene las entidades que representan los objetos del dominio (`User`, `Movie`).
     - Port:
       - Define los puertos, o interfaces, que exponen la funcionalidad del dominio (entrada) y las dependencias hacia afera (salida).
         - input.MovieService: Define los casos de uso relacionados con las películas.

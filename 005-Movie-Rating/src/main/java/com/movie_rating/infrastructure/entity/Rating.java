@@ -22,5 +22,5 @@ public class Rating {
     private User user;
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
-    private MovieEntity movieEntity;
+    private MovieTmbdEntity movieTmbdEntity;
 }
