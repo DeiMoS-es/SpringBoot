@@ -7,11 +7,12 @@ import com.movie_rating.api.model.entity.MovieApiModel;
 import com.movie_rating.api.repository.GenreRepository;
 import com.movie_rating.api.repository.TmdbRepository;
 import com.movie_rating.api.service.TmbdService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,19 @@ public class TmdbServiceImpl implements TmbdService {
                 })
                 .collectList();
     }
+
+    @Override
+    public Mono<Page<ApiModelDTO>> getMoviesTmbdPage(Pageable pageable) {
+        int apiPage = pageable.getPageNumber() + 1; // Ajustar para la API
+        return tmdbClient.getMovies(apiPage)
+                .map(movies -> new PageImpl<>(
+                        movies,                 // Lista de películas
+                        pageable,               // Información de paginación
+                        movies.size()           // Número total de resultados (provisional)
+                ));
+    }
+
+
 
     // Método para obtener un género de la base de datos o crear uno nuevo si no existe
     private GenreApiModel getOrCreateGenre(Integer genreId){
