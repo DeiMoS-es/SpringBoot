@@ -1,6 +1,7 @@
 package com.movie_rating.api.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.movie_rating.api.model.entity.GenreApiModel;
 import com.movie_rating.api.model.entity.MovieApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,12 +37,13 @@ public class ApiModelDTO {
     private int voteCount;
 
     // Method to convert DTO to entity
-    public MovieApiModel toEntity() {
+    public MovieApiModel toEntity(List<GenreApiModel> genreEntities) {
         MovieApiModel entity = new MovieApiModel();
         entity.setMovieId(this.id);
         entity.setAdult(this.adult);
         entity.setBackdropPath(this.backdropPath);
         entity.setGenreIds(this.genreIds);
+        entity.setGenres(genreEntities);
         entity.setOriginalLanguage(this.originalLanguage);
         entity.setOriginalTitle(this.originalTitle);
         entity.setOverview(this.overview);
@@ -54,6 +56,7 @@ public class ApiModelDTO {
         entity.setVoteCount(this.voteCount);
         return entity;
     }
+
     // Method to convert entity to DTO
     public ApiModelDTO toDTO(MovieApiModel entity) {
         ApiModelDTO dto = new ApiModelDTO();
@@ -74,3 +77,4 @@ public class ApiModelDTO {
         return dto;
     }
 }
+
