@@ -2,6 +2,7 @@ package com.movie_rating.api.service.impl;
 
 import com.movie_rating.api.client.TmdbClient;
 import com.movie_rating.api.model.dto.ApiModelDTO;
+import com.movie_rating.api.model.dto.PaginatedResponseDTO;
 import com.movie_rating.api.model.entity.GenreApiModel;
 import com.movie_rating.api.model.entity.MovieApiModel;
 import com.movie_rating.api.repository.GenreRepository;
@@ -74,8 +75,25 @@ public class TmdbServiceImpl implements TmbdService {
                         movies.size()           // Número total de resultados (provisional)
                 ));
     }
+    /**
+     * Obtiene películas de TMDb y devuelve una respuesta paginada.
+     *
+     * @param pageable la información de paginación proporcionada por Spring Data
+     * @return una respuesta paginada con las películas y metadatos
+     */
+    public Mono<PaginatedResponseDTO<ApiModelDTO>> getMoviesTmbdPageable(Pageable pageable) {
+        int currentPage = pageable.getPageNumber() + 1; // TMDb usa índices basados en 1
 
-
+        return tmdbClient.getMoviesPruebaPageable(currentPage)
+                .map(response -> new PaginatedResponseDTO<>(
+                        response.getResults(),
+                        pageable.getPageNumber(),
+                        response.getTotalPages(),
+                        response.getTotalResults(),
+                        pageable.getPageNumber() == response.getTotalPages() - 1,
+                        pageable.getPageNumber() == 0
+                ));
+    }
 
     // Método para obtener un género de la base de datos o crear uno nuevo si no existe
     private GenreApiModel getOrCreateGenre(Integer genreId){

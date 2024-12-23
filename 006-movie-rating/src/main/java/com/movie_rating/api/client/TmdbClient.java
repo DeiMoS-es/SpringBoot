@@ -37,12 +37,41 @@ public class TmdbClient {
                 .bodyToMono(TmdbResponse.class)
                 .map(TmdbResponse::getResults);
     }
+
+    public Mono<TmdbResponse> getMoviesPruebaPageable(int page){
+        return this.webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/discover/movie")
+                        .queryParam("api_key", apiKey)
+                        .queryParam("language", "es-ES")
+                        .queryParam("page", page)
+                        .build())
+                .retrieve()
+                .bodyToMono(TmdbResponse.class);
+    }
     // Clase interna que representa la respuesta de la API de TMDb
     // Se utiliza para deserializar la respuesta JSON de la API de TMDb
     // en una instancia de TmdbResponse que contiene una lista de ApiModelDTO (películas) en la propiedad results
-    private static class TmdbResponse {
+    public static class TmdbResponse {
         @JsonProperty("results")
         private List<ApiModelDTO> results;
+        @JsonProperty("total_pages")
+        private int totalPages;
+        @JsonProperty("total_results")
+        private int totalResults;
+        // Getters y setters
+        public int getTotalPages() {
+            return totalPages;
+        }
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
+        }
+        public int getTotalResults() {
+            return totalResults;
+        }
+        public void setTotalResults(int totalResults) {
+            this.totalResults = totalResults;
+        }
         public List<ApiModelDTO> getResults() {
             return results;
         }

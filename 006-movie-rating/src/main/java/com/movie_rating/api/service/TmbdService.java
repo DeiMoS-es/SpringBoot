@@ -1,6 +1,7 @@
 package com.movie_rating.api.service;
 
 import com.movie_rating.api.model.dto.ApiModelDTO;
+import com.movie_rating.api.model.dto.PaginatedResponseDTO;
 import com.movie_rating.api.model.entity.GenreApiModel;
 import com.movie_rating.api.model.entity.MovieApiModel;
 import org.springframework.data.domain.Page;
@@ -15,4 +16,5 @@ public interface TmbdService {
     List<GenreApiModel> mapGenres(List<Integer> genreIds);
     Mono<List<MovieApiModel>> processAndSaveMovies(int page);
     Mono<Page<ApiModelDTO>> getMoviesTmbdPage(Pageable pageable);
+    Mono<PaginatedResponseDTO<ApiModelDTO>> getMoviesTmbdPageable(Pageable pageable);
 }

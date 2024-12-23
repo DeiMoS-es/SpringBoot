@@ -41,15 +41,14 @@ Una aplicación monolítica que permite a los usuarios registrarse, crear listas
     ```
 
 ## Uso
-
 1. Accede a la aplicación en `http://localhost:8080`.
 2. Regístrate y crea una cuenta.
 3. Crea y gestiona tus listas de películas.
 4. Consulta las películas populares y añade las que te interesen a tus listas.
+
 ## Desarrollo
 - Crear el proyecto con Spring Initializr
-- Configurar la base de datos H2 y MySQL:
-  - Crear la configuración de la base de datos H2
+- Configurar la base de datos MySQL:
   - Crear la configuración de la base de datos MySQL
   - Añadimos la configuración del properties
 - Empezamos desarrollando las llamadas a la API de TMDb
