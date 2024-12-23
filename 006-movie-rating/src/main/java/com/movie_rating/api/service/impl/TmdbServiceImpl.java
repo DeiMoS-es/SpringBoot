@@ -83,7 +83,6 @@ public class TmdbServiceImpl implements TmbdService {
      */
     public Mono<PaginatedResponseDTO<ApiModelDTO>> getMoviesTmbdPageable(Pageable pageable) {
         int currentPage = pageable.getPageNumber() + 1; // TMDb usa índices basados en 1
-
         return tmdbClient.getMoviesPruebaPageable(currentPage)
                 .map(response -> new PaginatedResponseDTO<>(
                         response.getResults(),
