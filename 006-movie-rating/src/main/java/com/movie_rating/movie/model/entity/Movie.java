@@ -3,13 +3,16 @@ package com.movie_rating.movie.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
@@ -28,6 +31,7 @@ public class Movie {
     )
     private List<Genre> genres;
     private String originalLanguage;
+    @NotNull
     private String originalTitle;
     @Column(columnDefinition = "LONGTEXT")
     private String description;
@@ -37,7 +41,8 @@ public class Movie {
     private String title;
     private Double voteAverage;
     private Integer voteCount;
-
+    private Date createdAt;
+    private Date updatedAt;
     public void setPosterPath(String posterPath) {
         this.posterPath = "https://image.tmdb.org/t/p/w220_and_h330_face" + posterPath;
     }
