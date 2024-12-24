@@ -3,7 +3,7 @@ package com.movie_rating.api.service.impl;
 import com.movie_rating.api.client.TmdbClient;
 import com.movie_rating.api.model.dto.ApiModelDTO;
 import com.movie_rating.api.model.entity.MovieApiModel;
-import com.movie_rating.api.repository.GenreRepository;
+import com.movie_rating.api.repository.GenreTmdbRepository;
 import com.movie_rating.api.repository.TmdbRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ public class TmdbServiceImplTest {
     @Mock
     private TmdbRepository tmdbRepository;
     @Mock
-    private GenreRepository genreRepository;
+    private GenreTmdbRepository genreTmdbRepository;
     @Mock
     private TmdbClient tmdbClient;
     @InjectMocks

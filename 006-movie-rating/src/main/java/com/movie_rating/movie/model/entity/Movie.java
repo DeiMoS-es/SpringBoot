@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -17,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movieId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID movieId;
     @NotNull
     private boolean adult;
     private String backdropPath;
