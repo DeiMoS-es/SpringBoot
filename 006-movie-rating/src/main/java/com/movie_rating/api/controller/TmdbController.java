@@ -25,10 +25,6 @@ public class TmdbController {
 
     /**
      * Se podrá eliminar
-     * @param page
-     * @param size
-     * @return
-
     @GetMapping("/movies")
     public Mono<ResponseEntity<Page<ApiModelDTO>>> getMoviesTmbd( @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);

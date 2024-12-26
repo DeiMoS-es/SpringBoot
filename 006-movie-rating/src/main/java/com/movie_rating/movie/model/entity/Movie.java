@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Date;
 import java.util.List;
@@ -19,11 +20,11 @@ import java.util.UUID;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID movieId;
+    //@UuidGenerator
+    private Long movieId;
     @NotNull
     private boolean adult;
     private String backdropPath;
-    private List<Integer> genreIds;
     @ManyToMany
     @JoinTable(
             name = "movie_genre",
