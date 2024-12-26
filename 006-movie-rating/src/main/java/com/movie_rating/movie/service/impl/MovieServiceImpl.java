@@ -1,7 +1,5 @@
 package com.movie_rating.movie.service.impl;
-
 import com.movie_rating.api.model.entity.MovieApiModel;
-import com.movie_rating.movie.config.ModelMapperConfig;
 import com.movie_rating.movie.config.MovieMapper;
 import com.movie_rating.movie.exception.MovieAlreadyExistsException;
 import com.movie_rating.movie.model.dto.MovieDTO;
@@ -137,7 +135,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Mono<Void> deleteMovieById(Long id) {
-        return null;
+        return Mono.fromRunnable(() -> movieRepository.deleteById(id));
     }
 
     @Override

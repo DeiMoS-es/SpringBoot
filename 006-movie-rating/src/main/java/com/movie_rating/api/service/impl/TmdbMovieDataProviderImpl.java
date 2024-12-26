@@ -20,5 +20,4 @@ public class TmdbMovieDataProviderImpl implements MovieDataProvider {
     public List<MovieApiModel> getAllmovies() {
         return tmdbRepository.findAll();
     }
-
 }

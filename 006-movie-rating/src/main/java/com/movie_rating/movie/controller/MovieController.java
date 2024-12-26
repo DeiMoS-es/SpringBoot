@@ -39,4 +39,10 @@ public class MovieController {
         return movieService.updateMovieDataBase()
                 .thenReturn(ResponseEntity.ok("Database updated successfully"));
     }
+
+    @DeleteMapping
+    public Mono<ResponseEntity<String>> deleteMovieById(@RequestParam(value = "id") Long id){
+        return movieService.deleteMovieById(id)
+                .thenReturn(ResponseEntity.ok("Movie deleted successfully"));
+    }
 }

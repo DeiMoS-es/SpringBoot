@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -37,12 +38,21 @@ public class MovieServiceImplTest {
     @BeforeEach
     void setUp() {
         movie = new Movie();
-        movie.setMovieId(UUID.randomUUID());
+        movie.setMovieId(1L);
         movie.setTitle("Test Movie");
         movieDTO = new MovieDTO();
         movieDTO.setTitle("Test Movie");
     }
-
+    @Test
+void testDeleteMovieById() {
+    // 1. Configura el comportamiento del mock del repositorio para que no haga nada cuando se le llame con el ID de la película.
+    doNothing().when(movieRepository).deleteById(movie.getMovieId());
+    // 2. Llama al método deleteMovieById del servicio y guarda el resultado en un Mono.
+    Mono<Void> result = movieService.deleteMovieById(movie.getMovieId());
+    // 3. Verifica que el Mono se complete correctamente.
+    StepVerifier.create(result)
+            .verifyComplete();
+}
     @Test
     void testGetMoviesPageable() {
         // 1. Crea un objeto Pageable con la configuración de la página (número de página y tamaño de página).
