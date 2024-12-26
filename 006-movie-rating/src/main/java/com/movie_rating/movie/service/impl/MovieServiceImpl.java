@@ -1,6 +1,7 @@
 package com.movie_rating.movie.service.impl;
 
 import com.movie_rating.movie.config.ModelMapperConfig;
+import com.movie_rating.movie.exception.MovieAlreadyExistsException;
 import com.movie_rating.movie.model.dto.MovieDTO;
 import com.movie_rating.movie.model.dto.MovieResponsePaginated;
 import com.movie_rating.movie.model.entity.Genre;
@@ -64,6 +65,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Mono<Void> saveMovie(MovieDTO movieDTO) {
         return Mono.fromRunnable(() -> {
+            // Verificar si la película existe
+            Optional<Movie> existingMovie = movieRepository.findByTitleAndReleaseDate(movieDTO.getTitle(), movieDTO.getReleaseDate());
+            if(existingMovie.isPresent()){
+                throw new MovieAlreadyExistsException("Movie with the title: " + movieDTO.getTitle() + " already exists");
+            }
             List<Genre> genres = movieDTO.getGenreIds().stream()
                     .map(this:: getOrCreateGenre)
                     .toList();
