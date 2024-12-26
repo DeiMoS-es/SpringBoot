@@ -13,6 +13,7 @@ public interface MovieService {
     Mono<MovieResponsePaginated<MovieDTO>> getMoviesPageable(Pageable pageable);
     Mono<Void> saveMovie(MovieDTO movieDTO);
     Mono<Void> saveMovies(List<MovieDTO> movieDTO);
+    Mono<Void> updateMovieDataBase();
     Mono<MovieDTO> getMovieById(Long id);
     Mono<MovieDTO> getMovieByTitle(String title);
     Mono<Void> deleteMovieById(Long id);

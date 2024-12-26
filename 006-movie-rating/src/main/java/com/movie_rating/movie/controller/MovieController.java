@@ -34,4 +34,9 @@ public class MovieController {
         return movieService.saveMovie(movieDTO)
                 .thenReturn(ResponseEntity.ok("Movie saved successfully"));
     }
+    @PostMapping("/updateDB")
+    public Mono<ResponseEntity<String>> updateMovieDataBase(){
+        return movieService.updateMovieDataBase()
+                .thenReturn(ResponseEntity.ok("Database updated successfully"));
+    }
 }

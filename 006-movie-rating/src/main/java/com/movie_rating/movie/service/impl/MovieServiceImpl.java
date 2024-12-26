@@ -1,15 +1,20 @@
 package com.movie_rating.movie.service.impl;
 
+import com.movie_rating.api.model.entity.MovieApiModel;
 import com.movie_rating.movie.config.ModelMapperConfig;
+import com.movie_rating.movie.config.MovieMapper;
 import com.movie_rating.movie.exception.MovieAlreadyExistsException;
 import com.movie_rating.movie.model.dto.MovieDTO;
 import com.movie_rating.movie.model.dto.MovieResponsePaginated;
 import com.movie_rating.movie.model.entity.Genre;
 import com.movie_rating.movie.model.entity.Movie;
+import com.movie_rating.movie.provider.MovieDataProvider;
 import com.movie_rating.movie.repository.GenreRepository;
 import com.movie_rating.movie.repository.MovieRepository;
 import com.movie_rating.movie.service.MovieService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -22,12 +27,19 @@ import java.util.Optional;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
     private final ModelMapper modelMapper;
-    private GenreRepository genreRepository;
+    private final GenreRepository genreRepository;
+    private final MovieDataProvider movieDataProvider;
+    private final MovieMapper movieMapper;
 
-    public MovieServiceImpl(MovieRepository movieRepository, ModelMapper modelMapper, GenreRepository genreRepository) {
+    public MovieServiceImpl(
+            MovieRepository movieRepository, ModelMapper modelMapper,
+            GenreRepository genreRepository, MovieDataProvider movieDataProvider,
+            MovieMapper movieMapper) {
         this.movieRepository = movieRepository;
         this.modelMapper = modelMapper;
         this.genreRepository = genreRepository;
+        this.movieDataProvider = movieDataProvider;
+        this.movieMapper = movieMapper;
     }
 
     @Override
@@ -78,6 +90,7 @@ public class MovieServiceImpl implements MovieService {
             movieRepository.save(movie);
         });
     }
+
     private Genre getOrCreateGenre(Integer genreId) {
         Optional<Genre> optionalGenre = genreRepository.findByGenreId(genreId);
         return optionalGenre.orElseGet(() ->{
@@ -89,6 +102,28 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Mono<Void> saveMovies(List<MovieDTO> movieDTO) {
         return null;
+    }
+
+    @Override
+    @Transactional
+    public Mono<Void> updateMovieDataBase() {
+        return Mono.fromRunnable(() -> {
+            try {
+                List<MovieApiModel> apiMovies = movieDataProvider.getAllmovies();
+                List<Movie> movies = movieMapper.mapToMovies(apiMovies);
+                for (Movie movie : movies) {
+                    // Verificar y obtener los géneros
+                    List<Genre> genres = movie.getGenres().stream()
+                            .map(genre -> getOrCreateGenre(genre.getGenreId()))
+                            .toList();
+                    movie.setGenres(genres);
+                    movieRepository.save(movie);
+                }
+            } catch (OptimisticLockingFailureException e) {
+                System.out.println("Error al actualizar la base de datos");
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     @Override
