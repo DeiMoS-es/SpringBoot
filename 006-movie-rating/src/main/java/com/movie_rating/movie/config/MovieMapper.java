@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Clase que mapea los datos de las películas.
+ */
 @Component
 public class MovieMapper {
     private final ModelMapper modelMapper;

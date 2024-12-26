@@ -18,7 +18,6 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -90,7 +89,6 @@ public class MovieServiceImpl implements MovieService {
             movieRepository.save(movie);
         });
     }
-
     private Genre getOrCreateGenre(Integer genreId) {
         Optional<Genre> optionalGenre = genreRepository.findByGenreId(genreId);
         return optionalGenre.orElseGet(() ->{
@@ -99,6 +97,7 @@ public class MovieServiceImpl implements MovieService {
             return genreRepository.save(genre);
         });
     }
+
     @Override
     public Mono<Void> saveMovies(List<MovieDTO> movieDTO) {
         return null;

@@ -48,6 +48,7 @@ Una aplicación monolítica que permite a los usuarios registrarse, crear listas
 
 ## Desarrollo
 - Crear el proyecto con Spring Initializr
+- Se utilizará programación reactiva con Spring WebFlux y WebClient.
 - Configurar la base de datos MySQL:
   - Crear la configuración de la base de datos MySQL
   - Añadimos la configuración del properties
@@ -55,6 +56,9 @@ Una aplicación monolítica que permite a los usuarios registrarse, crear listas
   - Creamos las entidades y los repositorios
   - Creamos los servicios
   - Creamos los controladores
+- Creamos las entidades y los repositorios de la aplicación (movie)
+  - Configuramos para devolver las películas de la base de datos paginadas
+  - Se crea el método para actualizar la bbdd de movies, obteniendo los datos de la bbdd de TMDb
 
 ## Contribuir
 

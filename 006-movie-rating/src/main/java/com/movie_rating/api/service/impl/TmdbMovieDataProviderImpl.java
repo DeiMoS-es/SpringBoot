@@ -6,6 +6,9 @@ import com.movie_rating.movie.provider.MovieDataProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * Clase que implementa el contrato para obtener datos de películas.
+ */
 @Service
 public class TmdbMovieDataProviderImpl implements MovieDataProvider {
     private final TmdbRepository tmdbRepository;
