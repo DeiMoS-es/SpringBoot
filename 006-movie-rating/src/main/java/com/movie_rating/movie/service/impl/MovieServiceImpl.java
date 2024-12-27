@@ -2,6 +2,7 @@ package com.movie_rating.movie.service.impl;
 import com.movie_rating.api.model.entity.MovieApiModel;
 import com.movie_rating.movie.config.MovieMapper;
 import com.movie_rating.movie.exception.MovieAlreadyExistsException;
+import com.movie_rating.movie.exception.MovieNotFoundException;
 import com.movie_rating.movie.model.dto.MovieDTO;
 import com.movie_rating.movie.model.dto.MovieResponsePaginated;
 import com.movie_rating.movie.model.entity.Genre;
@@ -125,7 +126,10 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Mono<MovieDTO> getMovieById(Long id) {
-        return null;
+        return Mono.fromCallable(() -> movieRepository.findById(id))
+                   .flatMap(optionalMovie -> optionalMovie
+                       .map(movie -> Mono.just(modelMapper.map(movie, MovieDTO.class)))
+                       .orElseThrow(() -> new MovieNotFoundException("Movie with id: " + id + " not found")));
     }
 
     @Override

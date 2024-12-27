@@ -22,7 +22,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class MovieServiceImplTest {
@@ -44,7 +44,22 @@ public class MovieServiceImplTest {
         movieDTO.setTitle("Test Movie");
     }
     @Test
-void testDeleteMovieById() {
+    void testGetMovieById(){
+        // 1. Configura el comportamiento del mock del repositorio para que devuelva una película cuando se le llame con el ID de la película.
+        when(movieRepository.findById(movie.getMovieId())).thenReturn(Optional.of(movie));
+        // 2. Configura el comportamiento del mock del ModelMapper para que convierta la entidad Movie a un DTO MovieDTO.
+        when(modelMapper.map(movie, MovieDTO.class)).thenReturn(movieDTO);
+        // 3. Llama al método getMovieById del servicio y guarda el resultado en un Mono.
+        Mono<MovieDTO> result = movieService.getMovieById(movie.getMovieId());
+        // 4. Verifica el resultado del Mono usando StepVerifier.
+        StepVerifier.create(result)
+                // 5. Verifica que el contenido del resultado sea correcto.
+                .expectNextMatches(response -> response.getTitle().equals("Test Movie"))
+                // 6. Verifica que el Mono se complete correctamente.
+                .verifyComplete();
+    }
+    @Test
+    void testDeleteMovieById() {
     // 1. Configura el comportamiento del mock del repositorio para que no haga nada cuando se le llame con el ID de la película.
     doNothing().when(movieRepository).deleteById(movie.getMovieId());
     // 2. Llama al método deleteMovieById del servicio y guarda el resultado en un Mono.
