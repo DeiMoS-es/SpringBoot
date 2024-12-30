@@ -99,7 +99,17 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Mono<Void> saveMovies(List<MovieDTO> movieDTO) {
-        return null;
+        return Mono.fromRunnable(() ->{
+            List<Movie> movies = movieDTO.stream()
+                    .map(movie ->{
+                        List<Genre> genres = movie.getGenreIds().stream()
+                                .map(this::getOrCreateGenre)
+                                .toList();
+                        return mapToEntity(movie, genres);
+                    })
+                    .toList();
+            movieRepository.saveAll(movies);
+        });
     }
 
     @Override
