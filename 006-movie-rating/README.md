@@ -59,7 +59,14 @@ Una aplicación monolítica que permite a los usuarios registrarse, crear listas
 - Creamos las entidades y los repositorios de la aplicación (movie)
   - Configuramos para devolver las películas de la base de datos paginadas
   - Se crea el método para actualizar la bbdd de movies, obteniendo los datos de la bbdd de TMDb
-
+## Rutas
+- Api Tmdb
+  - **GET** api/tmdb: Realiza una petición a la API de TMDb y devuelve las películas de la primera página por defecto y las almacena en la base de datos. Si se le pasa el parámetro page=2 por ejemplo, devolverá las películas de la página 2.
+  - **GET** api/tmdb/pageable: Devuelve las películas de la API de TMDb paginadas-
+- Movies
+  -  **GET** /movies: Devuelve todas las películas de la base de datos paginadas.
+  - **POST** /movies: Almacena las películas de la bbdd de TMDb en la bbdd de la aplicación dándole el formato personalizado.
+  - **DELETE** /movies/id: Borra una película de la base de datos.
 ## Contribuir
 
 Las contribuciones son bienvenidas. Para contribuir:
