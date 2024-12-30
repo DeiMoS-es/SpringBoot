@@ -45,8 +45,4 @@ public class MovieApiModel {
     private Double voteAverage;
     @JsonProperty("vote_count")
     private int voteCount;
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = "https://image.tmdb.org/t/p/w220_and_h330_face" + posterPath;
-    }
 }

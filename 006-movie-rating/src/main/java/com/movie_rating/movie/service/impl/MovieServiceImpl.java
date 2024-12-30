@@ -98,18 +98,24 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Mono<Void> saveMovies(List<MovieDTO> movieDTO) {
-        return Mono.fromRunnable(() ->{
-            List<Movie> movies = movieDTO.stream()
-                    .map(movie ->{
-                        List<Genre> genres = movie.getGenreIds().stream()
-                                .map(this::getOrCreateGenre)
-                                .toList();
-                        return mapToEntity(movie, genres);
-                    })
-                    .toList();
-            movieRepository.saveAll(movies);
-        });
+    public Mono<Void> saveMovies(List<MovieDTO> movieDTOs) {
+        return Mono.fromRunnable(() -> {
+                    List<Movie> movies = movieDTOs.stream()
+                            .map(movieDTO -> {
+                                List<Genre> genres = movieDTO.getGenreIds().stream()
+                                        .map(this::getOrCreateGenre)
+                                        .toList();
+                                return mapToEntity(movieDTO, genres);
+                            })
+                            .toList();
+                    movieRepository.saveAll(movies);
+                })
+                .then()
+                .onErrorResume(e -> {
+                    // Manejo del error, por ejemplo, registro del error
+                    System.out.println("Error al guardar las películas: " + e.getMessage());
+                    return Mono.empty();
+                });
     }
 
     @Override
@@ -125,6 +131,7 @@ public class MovieServiceImpl implements MovieService {
                             .map(genre -> getOrCreateGenre(genre.getGenreId()))
                             .toList();
                     movie.setGenres(genres);
+                    movie.setCreatedAt(new Date());
                     movieRepository.save(movie);
                 }
             } catch (OptimisticLockingFailureException e) {
@@ -144,7 +151,10 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Mono<MovieDTO> getMovieByTitle(String title) {
-        return null;
+        return Mono.fromCallable(() -> movieRepository.findByTitle(title))
+                .flatMap(optionalMovie -> optionalMovie
+                        .map(movie -> Mono.just(modelMapper.map(movie, MovieDTO.class)))
+                        .orElseGet(Mono::empty));
     }
 
     @Override

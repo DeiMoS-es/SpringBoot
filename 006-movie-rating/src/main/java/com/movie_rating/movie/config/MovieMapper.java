@@ -21,6 +21,8 @@ public class MovieMapper {
     public Movie mapToMovie(MovieApiModel movieApiModel) {
         Movie movie = modelMapper.map(movieApiModel, Movie.class);
         movie.setMovieId(null); // Asegúrate de que el ID no se establezca manualmente
+        //movie.setbackdropPath(movieApiModel.getBackdropPath());
+        movie.setDescription(movieApiModel.getOverview());
         return movie;
     }
 
