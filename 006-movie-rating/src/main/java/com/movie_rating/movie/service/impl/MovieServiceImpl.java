@@ -46,22 +46,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Mono<MovieResponsePaginated<MovieDTO>> getMoviesPageable(Pageable pageable) {
-        return Mono.fromCallable(() -> movieRepository.findAll(pageable))
-                .map( page -> {
-                    List<MovieDTO> movieDTOs = page.getContent().stream()
-                            .map(this::mapToDTO)
-                            .toList();
-                    return new MovieResponsePaginated<>(
-                            movieDTOs,
-                            page.getNumber(),
-                            page.getTotalPages(),
-                            page.getTotalElements(),
-                            page.isLast(),
-                            page.isFirst()
-                    );
-                });
-    }
+public List<MovieDTO> getMoviesPageable(Pageable pageable) {
+    var page = movieRepository.findAll(pageable);
+    List<MovieDTO> movieDTOs = page.getContent().stream()
+            .map(this::mapToDTO)
+            .toList();
+    return movieDTOs;
+}
     private MovieDTO mapToDTO(Movie movie) {
         return modelMapper.map(movie, MovieDTO.class);
     }

@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface MovieService {
     List<Movie>findAll();
-    Mono<MovieResponsePaginated<MovieDTO>> getMoviesPageable(Pageable pageable);
+    
+    //Mono<MovieResponsePaginated<MovieDTO>> getMoviesPageable(Pageable pageable);
     Mono<Void> saveMovie(MovieDTO movieDTO);
     Mono<Void> saveMovies(List<MovieDTO> movieDTO);
     Mono<Void> updateMovieDataBase();
@@ -19,4 +20,6 @@ public interface MovieService {
     Mono<Void> deleteMovieById(Long id);
     Mono<Void> deleteMovieByTitle(String title);
     Mono<Void> updateMovie(MovieDTO movieDTO);
+
+    List<MovieDTO> getMoviesPageable(Pageable pageable);
 }
