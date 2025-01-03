@@ -4,6 +4,7 @@ import com.movie_rating.user.model.dto.AuthResponse;
 import com.movie_rating.user.model.dto.LoginRequest;
 import com.movie_rating.user.model.dto.RegisterRequest;
 import com.movie_rating.user.service.AuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,16 +22,20 @@ public class AuthController {
     }
 
     @PostMapping(value = "login")
-    public Mono<ResponseEntity<AuthResponse>> login(@RequestBody LoginRequest request){
-        return Mono.fromCallable(() -> {
-            return ResponseEntity.ok(authService.login(request));
-        });
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
+        try {
+            AuthResponse authResponse = authService.login(request);
+            return ResponseEntity.ok(authResponse);
+        } catch (Exception e) {
+            // Log de la excepción si ocurre un error durante el inicio de sesión
+            System.out.println("Error durante el inicio de sesión: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping(value = "register")
-    public Mono<ResponseEntity<AuthResponse>> register(@RequestBody RegisterRequest request){
-        return Mono.fromCallable(() -> {
-            return ResponseEntity.ok(authService.register(request));
-        });
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
+        return ResponseEntity.ok(authService.register(request));
     }
+
 }

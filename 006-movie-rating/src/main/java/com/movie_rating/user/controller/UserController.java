@@ -14,8 +14,4 @@ public class UserController {
         return "Hello, User! ruta protegida";
     }
 
-    @GetMapping("/hello2")
-    public Mono<String> hello2() {
-        return Mono.just("Hello2, User! ruta protegida");
-    }
 }
