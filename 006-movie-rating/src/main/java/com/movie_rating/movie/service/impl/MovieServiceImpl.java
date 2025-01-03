@@ -14,6 +14,7 @@ import com.movie_rating.movie.service.MovieService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -46,13 +47,14 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-public List<MovieDTO> getMoviesPageable(Pageable pageable) {
-    var page = movieRepository.findAll(pageable);
-    List<MovieDTO> movieDTOs = page.getContent().stream()
+    public List<MovieDTO> getMovies(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        var pageResult = movieRepository.findAll(pageable);
+        List<MovieDTO> movieDTOs = pageResult.getContent().stream()
             .map(this::mapToDTO)
             .toList();
-    return movieDTOs;
-}
+        return movieDTOs;
+    }
     private MovieDTO mapToDTO(Movie movie) {
         return modelMapper.map(movie, MovieDTO.class);
     }
